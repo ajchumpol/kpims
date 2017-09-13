@@ -1,0 +1,75 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>
+	<table style="margin: auto; width:100%; padding:10px;">
+	<tr>
+		<td style="margin: auto; width:25%;">
+		<div class="w3-card" style="margin:10px;">
+		<div class="w3-container">
+		  <h3 class="w3-center"><?=$user_name?></h3>
+		  <?php
+			$image_prop = array(
+		      'src' => $user_photo,
+		      'alt' => $user_name,
+		      'style' => 'width:100%;margin-bottom:15px;'
+			);
+		    echo img($image_prop);
+		  ?><br>
+		  <i class="material-icons" style="vertical-align:middle;">account_box</i> <?=$type_name?><br>
+		  <i class="material-icons" style="vertical-align:middle;">cake</i> <?=$user_bd?><br>
+		  <i class="material-icons" style="vertical-align:middle;">email</i> <?=$user_email?><br>
+		  <i class="material-icons" style="vertical-align:middle;">date_range</i> <?=$user_create?><br>
+		  <a href="ManageUser/updateUser/<?=$_SESSION['s_user_id']?>" class="w3-button w3-green">Edit Profile</a>
+		</div>
+
+		</div>
+
+		<?php
+		if(isset($error)) {
+		?>
+		  <div id="id01" class="w3-modal" style="display:block;">
+		    <div class="w3-modal-content w3-card-4">
+		      <header class="w3-container w3-red">
+		        <h2>Information:</h2>
+		      </header>
+		      <div class="w3-container">
+		        <p><?=$error?></p>
+		      </div>
+		      <footer class="w3-container w3-blue w3-center">
+		        <button onclick="document.getElementById('id01').style.display='none'">Close</button>
+		      </footer>
+		    </div>
+		  </div>
+		<?php }	?>
+
+		</td>
+		<td style="vertical-align:top;">
+			<div class="w3-container">
+			  <h2 class="w3-leftbar w3-border-blue w3-pale-blue" style="padding:15px;">ข้อมูลหลัก</h2>
+
+			  <div class="w3-row">
+			    <a href="ManageUser/getUser" onclick="openCity(event, 'Cate01');">
+			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลผู้ใช้งาน</div>
+			    </a>
+			    <a href="javascript:void(0)" onclick="openCity(event, 'Cate02');">
+			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลเกณฑ์การประเมิน</div>
+			    </a>
+			    <a href="javascript:void(0)" onclick="openCity(event, 'Cate03');">
+			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลกลุ่มประเภทเงินทุนหมุนเวียน</div>
+			    </a>
+			  </div>
+			  <div class="w3-row">
+			    <a href="javascript:void(0)" onclick="openCity(event, 'Cate04');">
+			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลหน่วยตัวชี้วัด</div>
+			    </a>
+			    <a href="javascript:void(0)" onclick="openCity(event, 'Cate05');">
+			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลน้ำหนักตัวชี้วัด</div>
+			    </a>
+			    <a href="javascript:void(0)" onclick="openCity(event, 'Cate06');">
+			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลระดับคะแนน (ตัวชี้วัดย่อย)</div>
+			    </a>
+			  </div>
+			</div>
+		</td>
+	</tr>
+	</table>

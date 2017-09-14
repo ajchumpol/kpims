@@ -9,23 +9,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		  <h3 class="w3-center"><?=$user_name?></h3>
 		  <?php
 			$image_prop = array(
-		      'src' => $user_photo,
-		      'alt' => $user_name,
-		      'style' => 'width:100%;margin-bottom:15px;'
+		      	'src' => $user_photo,
+		      	'alt' => $user_name,
+		      	'style' => 'width:100%;padding:35px;'
 			);
 		    echo img($image_prop);
-		  ?><br>
+		  ?>
+		  <div class="file_upload" style="align:center;">
+		  <form method="post" enctype="multipart/form-data" action="ManageUser/uploading">
+		  <label for="i_photo" class="w3-button w3-green">อัพโหลดรูปใหม่</label>
+		  <input type="file" style="display:none;" id="i_photo" name="i_photo" class="file_upload_input" accept=".gif,.jpg,.jpeg,.png" onchange="this.form.submit();">
+		  </form>
+		  </div>
+		  <h4 id="loading" style="display:none;">Loading...</h4>
+		  <div id="message"></div>
+		  <br>
 		  <i class="material-icons" style="vertical-align:middle;">account_box</i> <?=$type_name?><br>
 		  <i class="material-icons" style="vertical-align:middle;">cake</i> <?=$user_bd?><br>
 		  <i class="material-icons" style="vertical-align:middle;">email</i> <?=$user_email?><br>
 		  <i class="material-icons" style="vertical-align:middle;">date_range</i> <?=$user_create?><br>
-		  <a href="ManageUser/updateUser/<?=$_SESSION['s_user_id']?>" class="w3-button w3-green">Edit Profile</a>
+		  <a href="ManageUser/updateUser/<?=$_SESSION['s_user_id']?>" class="w3-button w3-green">แก้ไขข้อมูล</a>
 		</div>
 
 		</div>
 
 		<?php
-		if(isset($error)) {
+		if(isset($error)) :
 		?>
 		  <div id="id01" class="w3-modal" style="display:block;">
 		    <div class="w3-modal-content w3-card-4">
@@ -35,12 +44,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		      <div class="w3-container">
 		        <p><?=$error?></p>
 		      </div>
-		      <footer class="w3-container w3-blue w3-center">
+		      <footer class="w3-container w3-red w3-center">
 		        <button onclick="document.getElementById('id01').style.display='none'">Close</button>
 		      </footer>
 		    </div>
 		  </div>
-		<?php }	?>
+		<?php endif;	?>
 
 		</td>
 		<td style="vertical-align:top;">
@@ -51,10 +60,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			    <a href="ManageUser/getUser" onclick="openCity(event, 'Cate01');">
 			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลผู้ใช้งาน</div>
 			    </a>
-			    <a href="javascript:void(0)" onclick="openCity(event, 'Cate02');">
+			    <a href="ManageCriterion/getCriterion" onclick="openCity(event, 'Cate02');">
 			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลเกณฑ์การประเมิน</div>
 			    </a>
-			    <a href="javascript:void(0)" onclick="openCity(event, 'Cate03');">
+			    <a href="ManageCapitalType/getCapitalType" onclick="openCity(event, 'Cate03');">
 			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลกลุ่มประเภทเงินทุนหมุนเวียน</div>
 			    </a>
 			  </div>

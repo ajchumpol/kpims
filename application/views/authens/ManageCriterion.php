@@ -5,12 +5,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<tr>
 		<td style="vertical-align:top;border:0px;">
 			<div class="w3-container">
-			  <h3 class="w3-leftbar w3-border-blue w3-pale-blue" style="padding:15px;"><a href="<?=base_url('index.php/MainUser')?>"><i class="material-icons" style="vertical-align:middle;">arrow_back</i></a> ข้อมูลผู้ใช้งาน</h3>
+			  <h3 class="w3-leftbar w3-border-blue w3-pale-blue" style="padding:15px;"><a href="<?=base_url('index.php/MainCriterion')?>"><i class="material-icons" style="vertical-align:middle;">arrow_back</i></a> ข้อมูลเกณฑ์การประเมิน</h3>
 			  <table class="w3-table">
 			  	<tr>
 			  		<td colspan="4" style="padding:0px;margin:0px;">
-					<?=form_open("ManageUser/getUser", "autocomplete='off'")?>
-					  <input class="w3-input w3-border w3-left" style="width:300px;" type="text" name="i_key" placeholder="Username/E-mail">
+					<?=form_open("ManageCriterion/getCriterion", "autocomplete='off'")?>
+					  <input class="w3-input w3-border w3-left" style="width:300px;" type="text" name="i_key" placeholder="ค้นหาเกณฑ์การประเมิน">
 					  <button class="w3-button w3-blue">ค้นหา</button>
 					</form>
 			  		</td>
@@ -20,10 +20,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			  <table class="w3-table-all w3-border">
 			    <tr class="w3-blue">
 			      <th class="w3-center">ที่</th>
-			      <th class="w3-center">ชื่อผู้ใช้งาน</th>
-			      <th class="w3-center">อีเมล</th>
-			      <th class="w3-center">วันที่เริ่มเข้าใช้งาน</th>
-			      <th class="w3-center">รายละเอียด</th>
+			      <th class="w3-center">เกณฑ์ประเมินผลฯ</th>
+			      <th class="w3-center">น้ำหนัก (%)</th>
+			      <th class="w3-center" colspan="2">แนวทางการกำหนดตัวชี้วัด</th>
 			      <th class="w3-center">แก้ไข</th>
 			      <th class="w3-center">ลบ</th>
 			    </tr>
@@ -111,7 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		  <header class="w3-container w3-blue"> 
 			<span onclick="document.getElementById('id03').style.display='none'" 
 			class="w3-button w3-display-topright">&times;</span>
-			<h3>เพิ่มข้อมูลผู้ใช้งาน</h3>
+			<h3>เพิ่มข้อมูลเกณฑ์การประเมิน</h3>
 		  </header>
 		  <div class="w3-container">
 			<!-- form class="w3-container" -->
@@ -122,7 +121,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				'method' => 'post', 
 				'autocomplete' => 'off'
 				);
-			echo form_open('ManageUser/adding', $attributes);
+			echo form_open('ManageCriterion/adding', $attributes);
 			?>
 			<table class="w3-table">
 			<tr>
@@ -165,7 +164,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<td><input class="w3-input w3-border" type="date" name="i_birthday"></td>
 			</tr>
 			<tr>
-			<td colspan="2"><button type="submit" class="w3-btn w3-blue" id="i_submit" onclick="return validateUser('กรุณายืนยันข้อมูลก่อนกดปุ่มบันทึก?');">บันทึก</button>
+			<td colspan="2"><button type="submit" class="w3-btn w3-blue" id="i_submit" onclick="return validateCriterion('กรุณายืนยันข้อมูลก่อนกดปุ่มบันทึก?');">บันทึก</button>
 			<button type="reset" class="w3-btn w3-blue">เคลียร์</button>
 			<button type="button" onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-red">ยกเลิก</button>
 			<span style="color:#FF0000;"><b>หมายเหตุ</b> * หมายถึง ต้องระบุข้อมูล</span>

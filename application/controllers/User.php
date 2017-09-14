@@ -19,7 +19,7 @@ class User extends CI_Controller {
 		$this->load->helper(array('url'));
 		$this->load->helper('html');
 		$this->load->helper('form');
-		$this->load->model('User_model');
+		$this->load->model('User_Model');
 		
 	}
 	
@@ -39,7 +39,7 @@ class User extends CI_Controller {
 		$username = $this->input->post('i_username');
 		$email = $this->input->post('i_email');
 
-		if ($this->User_model->get_user_id_from_username($username, $email) > 0) {
+		if ($this->User_Model->get_user_id_from_username($username, $email) > 0) {
 			echo '{ "type": 1, "error": "This field is already registered. please choose another one." }';
 		}else{
 			echo '{ "type": 0, "error": "This field is valid." }';
@@ -82,7 +82,7 @@ class User extends CI_Controller {
 			$email    = $this->input->post('i_email');
 			$password = $this->input->post('i_password');
 			
-			if ($this->User_model->create_user($username, $email, $password)) {
+			if ($this->User_Model->create_user($username, $email, $password)) {
 				
 				// user creation ok
 				$this->load->view('templates/header');
@@ -139,10 +139,10 @@ class User extends CI_Controller {
 			$username = $this->input->post('i_username');
 			$password = $this->input->post('i_password');
 			
-			if ($this->User_model->resolve_user_login($username, $password)) {
+			if ($this->User_Model->resolve_user_login($username, $password)) {
 				
-				$user_id = $this->User_model->get_user_id_from_username($username);
-				$user    = $this->User_model->get_user($user_id);
+				$user_id = $this->User_Model->get_user_id_from_username($username);
+				$user    = $this->User_Model->get_user($user_id);
 				
 				// set session user datas
 				$_SESSION['s_user_id']      = (int)$user->user_id;
@@ -215,4 +215,4 @@ class User extends CI_Controller {
 		
 	}
 	
-}
+} // end class

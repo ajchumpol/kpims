@@ -12,13 +12,13 @@ class MainUser extends CI_Controller {
 		$this->load->helper('html');
 		$this->load->helper('form');
 		$this->load->helper('url');
-		$this->load->model('user_model');
+		$this->load->model('User_Model');
 
 		if(isset($_SESSION['s_user_id'])){
 
 			$data = new stdClass();
 
-		  	$user = $this->user_model->get_user($_SESSION['s_user_id']);
+		  	$user = $this->User_Model->get_user($_SESSION['s_user_id']);
 
 		  	$data->user_id = (int)$user->user_id;
 		  	$data->user_name = (string)$user->user_name;

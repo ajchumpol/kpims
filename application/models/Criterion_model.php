@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * User_model class.
+ * Criterion_Model class.
  * 
  * @extends CI_Model
  */
-class User_model extends CI_Model {
+class Criterion_Model extends CI_Model {
 	/**
 	 * __construct function.
 	 * 

@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * ManageUser class.
+ * ManageCriterion class.
  * 
  * @extends CI_Controller
  */
-class ManageUser extends CI_Controller {
+class ManageCriterion extends CI_Controller {
 	/**
 	 * __construct function.
 	 * 
@@ -20,8 +20,8 @@ class ManageUser extends CI_Controller {
 		$this->load->helper(array('url'));
 		$this->load->helper('html');
 		$this->load->helper('form');
-		$this->load->model('User_Model');
-		$this->load->model('UserType_Model');
+		$this->load->model('Criterion_Model');
+		$this->load->model('CapitalType_Model');
 		
 	}
 	

@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * User_model class.
+ * User_Model class.
  * 
  * @extends CI_Model
  */
-class User_model extends CI_Model {
+class User_Model extends CI_Model {
 	/**
 	 * __construct function.
 	 * 
@@ -127,12 +127,12 @@ class User_model extends CI_Model {
 	/**
 	 * verify_password_hash function.
 	 * 
-	 * @access private
+	 * @access public
 	 * @param mixed $password
 	 * @param mixed $hash
 	 * @return bool
 	 */
-	private function verify_password_hash($password, $hash) {
+	public function verify_password_hash($password, $hash) {
 		
 		return password_verify($password, $hash);
 		
@@ -198,6 +198,37 @@ class User_model extends CI_Model {
 			"user_email" => $email,
 			"user_address" => $address,
 			"user_bd" => $birthday,
+			"user_edited" => date('Y-m-j H:i:s')
+		);
+		$this->db->where('user_id', $user_id);
+
+		return $this->db->update('kpi_user', $data);
+
+	}
+
+	/**
+	 * update_photo function.
+	 */
+	public function update_photo ($user_id, $user_photo) {
+
+		$data = array(
+			"user_photo" => $user_photo,
+			"user_edited" => date('Y-m-j H:i:s')
+		);
+		$this->db->where('user_id', $user_id);
+
+		return $this->db->update('kpi_user', $data);
+
+	}
+
+
+	/**
+	 * update_password function.
+	 */
+	public function update_password ($user_id, $user_password) {
+
+		$data = array(
+			"user_password" => $this->hash_password($user_password),
 			"user_edited" => date('Y-m-j H:i:s')
 		);
 		$this->db->where('user_id', $user_id);

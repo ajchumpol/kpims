@@ -16,3 +16,38 @@
 
 	.pagination a:hover:not(.active) {background-color: #ddd;}
 	
+	/*****************************************
+  		upload button styles
+  		Thank you: https://codepen.io/pieceofcode/pen/zldng;
+	******************************************/
+	.file_upload {
+		position: relative;
+		display: inline-block;
+	}
+
+	.file_upload_label {
+	  display: block;
+	  padding: 1em 2em;
+	  color: #fff;
+	  background: #222;
+	  border-radius: .4em;
+	  transition: background .3s;
+	  
+	  &:hover {
+	     cursor: pointer;
+	     background: #000;
+	  }
+	}
+	    
+	.file_upload_input {
+	    position: absolute;
+	    left: 0;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    font-size: 1;
+	    width:0;
+	    height: 100%;
+	    opacity: 0;
+	}
+

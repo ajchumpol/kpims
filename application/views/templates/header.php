@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	  <a href="#" class="w3-bar-item w3-button">ข้อมูลหลัก</a>
 	  <div class="w3-dropdown-content w3-bar-block w3-blue" style="top:38px;">
 		<a href="<?=base_url('index.php/ManageUser/getUser')?>" class="w3-bar-item w3-button">ข้อมูลผู้ใช้งาน</a>
-		<a href="#" class="w3-bar-item w3-button">ข้อมูลเกณฑ์การประเมิน</a>
-		<a href="#" class="w3-bar-item w3-button">ข้อมูลกลุ่มประเภทเงินทุนหมุนเวียน</a>
+		<a href="<?=base_url('index.php/ManageCriterion/getCriterion')?>" class="w3-bar-item w3-button">ข้อมูลเกณฑ์การประเมิน</a>
+		<a href="<?=base_url('index.php/ManageCapitalType/getCapitalType')?>" class="w3-bar-item w3-button">ข้อมูลกลุ่มประเภทเงินทุนหมุนเวียน</a>
 		<a href="#" class="w3-bar-item w3-button">ข้อมูลหน่วยตัวชี้วัด</a>
 		<a href="#" class="w3-bar-item w3-button">ข้อมูลน้ำหนักตัวชี้วัด</a>
 		<a href="#" class="w3-bar-item w3-button">ข้อมูลระดับคะแนน (ตัวชี้วัดย่อย)</a>
@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	  <button class="w3-button"><i class="material-icons">person</i></button>
 	  <div class="w3-dropdown-content w3-bar-block w3-blue" style="right:0"><?php $uid = $_SESSION['s_user_id']; ?>
 	    <a href="<?=base_url('index.php/ManageUser/getUserDetail/').$uid?>" class="w3-bar-item w3-button"><i class="material-icons" style="vertical-align:middle;">settings</i> ข้อมูลผู้ใช้</a>
-	    <a href="#" class="w3-bar-item w3-button"><i class="material-icons" style="vertical-align:middle;">vpn_key</i> เปลี่ยนรหัสผ่าน</a>
+	    <a href="<?=base_url('index.php/ManageUser/changePassword')?>" class="w3-bar-item w3-button"><i class="material-icons" style="vertical-align:middle;">vpn_key</i> เปลี่ยนรหัสผ่าน</a>
 	    <a href="<?=base_url('index.php/User/logout')?>" class="w3-bar-item w3-button"><i class="material-icons" style="vertical-align:middle;">exit_to_app</i> ออกจากระบบ</a>
 	  </div>
 	</div>

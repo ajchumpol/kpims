@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<tr>
 		<td style="vertical-align:top;border:0px;">
 			<div class="w3-container">
-			  <h3 class="w3-leftbar w3-border-blue w3-pale-blue" style="padding:15px;"><a href="<?=base_url('index.php/MainCriterion')?>"><i class="material-icons" style="vertical-align:middle;">arrow_back</i></a> ข้อมูลเกณฑ์การประเมิน</h3>
+			  <h3 class="w3-leftbar w3-border-blue w3-pale-blue" style="padding:15px;"><a href="<?=base_url('index.php/MainUser')?>"><i class="material-icons" style="vertical-align:middle;">arrow_back</i></a> ข้อมูลเกณฑ์การประเมิน</h3>
 			  <table class="w3-table">
 			  	<tr>
 			  		<td colspan="4" style="padding:0px;margin:0px;">

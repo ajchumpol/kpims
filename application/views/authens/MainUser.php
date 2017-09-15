@@ -69,10 +69,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			  </div>
 			  <div class="w3-row">
 			    <a href="javascript:void(0)" onclick="openCity(event, 'Cate04');">
-			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลหน่วยตัวชี้วัด</div>
+			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลตัวชี้วัด</div>
 			    </a>
 			    <a href="javascript:void(0)" onclick="openCity(event, 'Cate05');">
-			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลน้ำหนักตัวชี้วัด</div>
+			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลตัวชี้วัดย่อย</div>
 			    </a>
 			    <a href="javascript:void(0)" onclick="openCity(event, 'Cate06');">
 			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลระดับคะแนน (ตัวชี้วัดย่อย)</div>

@@ -28,22 +28,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			    </tr>
 				<?php
 					// convert object to array
-					$user_arr = json_decode(json_encode($user_obj), True);
+					$data_arr = json_decode(json_encode($data_obj), True);
 					$i_ord = 1;
-					for ($i_no = 0; $i_no < count($user_arr); $i_no++):
+					for ($i_no = 0; $i_no < count($data_arr); $i_no++):
 				?>
 			    <tr>
 			      <td><?=($i_ord++)?></td>
-			      <td><?=$user_arr[$i_no]['user_name']?></td>
-			      <td><?=$user_arr[$i_no]['user_email']?></td>
-			      <td class="w3-center"><?=$user_arr[$i_no]['user_create']?></td>
-			      <td class="w3-center"><a href="getUserDetail/<?=$user_arr[$i_no]['user_id']?>"><i class="material-icons" style="vertical-align:middle;">assignment_ind</i></a></td>
-			      <td class="w3-center"><a href="updateUser/<?=$user_arr[$i_no]['user_id']?>"><i class="material-icons" style="vertical-align:middle;">edit</i></a></td>
-			      <?php if($user_arr[$i_no]['type_id']==1 && $user_arr[$i_no]['user_name']=="Administrator"): ?>
-			      	<td class="w3-center">-</td>
-			  	  <?php else: ?>
-			      	<td class="w3-center"><a href="deleting/<?=$user_arr[$i_no]['user_id']?>" onclick="return confirmation('กรุณายืนยันเพื่อลบข้อมูลผู้ใช้?')"><i class="material-icons" style="vertical-align:middle;">delete</i></a></td>
-			  	  <?php endif; ?>
+			      <td><?=$data_arr[$i_no]['cri_title']?></td>
+			      <!-- <td><?php if(isset($data_arr[$i_no]['capt_id'])) echo $data_arr[$i_no]['capt_id']; else echo "-"; ?></td> -->
+			      <td class="w3-center"><?=$data_arr[$i_no]['cri_wei_min']."/".$data_arr[$i_no]['cri_wei_max']?></td>
+			      <td><?=$data_arr[$i_no]['cri_kpi_app']?></td>
+			      <td><?=$data_arr[$i_no]['cri_kpi_appexa']?></td>
+			      <td class="w3-center"><a href="updateCriterion/<?=$data_arr[$i_no]['cri_id']?>"><i class="material-icons" style="vertical-align:middle;">edit</i></a></td>
+			      <td class="w3-center"><a href="deleting/<?=$data_arr[$i_no]['cri_id']?>" onclick="return confirmation('กรุณายืนยันเพื่อลบข้อมูลเกณฑ์ประเมินผลฯ ?')"><i class="material-icons" style="vertical-align:middle;">delete</i></a></td>
 			    </tr>
 				<?php
 					endfor;
@@ -57,12 +54,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			    <tr>
 			      <th colspan="3">
 					  <?php
-					  	if (isset($user_pg)) {
-                    		echo $user_pg;
+					  	if (isset($data_pg)) {
+                    		echo $data_pg;
                 		}
 					  ?>
 			      </th>
-			      <th colspan="4" style="text-align:right;">ทั้งหมด <?=count($user_arr)?> ระเบียน</th>
+			      <th colspan="4" style="text-align:right;">ทั้งหมด <?=count($data_arr)?> ระเบียน</th>
 			    </tr>
   			</table>
   			<br>
@@ -125,46 +122,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			?>
 			<table class="w3-table">
 			<tr>
-			<td><b>ชื่อ-สกุล</b></td>
-			<td><input class="w3-input w3-border" type="text" name="i_flname"></td>
+			<td><b>เกณฑ์ประเมินผลฯ <span style="color:#FF0000;">*</span></b></td>
+			<td><input class="w3-input w3-border" type="text" name="i_crititle" required></td>
 			</tr>
 			<tr>
-			<td><b>ชื่อผู้ใช้งาน<span style="color:#FF0000;">*</span></b></td>
-			<td><input class="w3-input w3-border" type="text" id="i_username" name="i_username" onkeyup="return validateUsername()" required></td>
+			<td><b>น้ำหนัก <span style="color:#FF0000;">*</span></b></td>
+			<td>- <input class="w3-input w3-border" style="width:10%" type="number" id="i_criwei_min" name="i_criwei_min" required>/<input class="w3-input w3-border" style="width:10%" type="number" id="i_criwei_max" name="i_criwei_max" required> +</td>
 			</tr>
 			<tr>
-			<td><b>อีเมล<span style="color:#FF0000;">*</span></b></td>
-			<td><input class="w3-input w3-border" type="email" id="i_email" name="i_email" onkeyup="return validateEmail()" required></td>
-			</tr>
-			<tr>
-			<td><b>รหัสผ่าน<span style="color:#FF0000;">*</span></b></td>
-			<td><input class="w3-input w3-border" type="password" id="i_password" name="i_password" onkeyup="return validatePassword()" required></td>
-			</tr>
-			<tr>
-			<td><b>ยืนยันรหัสผ่าน<span style="color:#FF0000;">*</span></b></td>
-			<td><input class="w3-input w3-border" type="password" id="i_confirm_password" onkeyup="return validatePassword()" required></td>
-			</tr>
-			<tr>
-			<td><b>ประเภทผู้ใช้งาน<span style="color:#FF0000;">*</span></b></td>
+			<td><b>ประเภทเงินทุนหมุนเวียน</b></td>
 			<td>
 			<?php
 				// convert object to array
-				$user_type_arr = json_decode(json_encode($user_type_obj), True);
-				for ($t_no = 0; $t_no < count($user_type_arr); $t_no++):
+				$data_type_arr = json_decode(json_encode($capital_type_obj), True);
+				if(count($data_type_arr) == 0):
+					echo "-";
+				endif;
+				for ($t_no = 0; $t_no < count($data_type_arr); $t_no++):
 			?>
-			<input class="w3-radio" type="radio" name="i_type" value="<?=$user_type_arr[$t_no]['type_id']?>" required>
-			<label><?=$user_type_arr[$t_no]['type_name']?></label>
+			<input class="w3-radio" type="radio" name="i_capt_id" value="<?=$data_type_arr[$t_no]['capt_id']?>">
+			<label><?=$data_type_arr[$t_no]['capt_name']?></label>
 			<?php endfor; ?></td></tr>
 			<tr>
-			<td><b>ที่อยู่</b></td>
-			<td><textarea rows="3" cols="50" class="w3-input w3-border" name="i_address"></textarea></td>
+			<td><b>แนวทางกำหนดตัวชี้วัด</b></td>
+			<td><textarea rows="5" cols="50" class="w3-input w3-border" name="i_criapp"></textarea></td>
 			</tr>
 			<tr>
-			<td><b>วัน/เดือน/ปี เกิด</b></td>
-			<td><input class="w3-input w3-border" type="date" name="i_birthday"></td>
+			<td><b>ตัวอย่างแนวทางกำหนดตัวชี้วัด</b></td>
+			<td><textarea rows="5" cols="50" class="w3-input w3-border" name="i_criapp_ex"></textarea></td>
 			</tr>
 			<tr>
-			<td colspan="2"><button type="submit" class="w3-btn w3-blue" id="i_submit" onclick="return validateCriterion('กรุณายืนยันข้อมูลก่อนกดปุ่มบันทึก?');">บันทึก</button>
+			<td colspan="2"><button type="submit" class="w3-btn w3-blue" id="i_submit" onclick="return confirmation('กรุณายืนยันข้อมูลก่อนกดปุ่มบันทึก?');">บันทึก</button>
 			<button type="reset" class="w3-btn w3-blue">เคลียร์</button>
 			<button type="button" onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-red">ยกเลิก</button>
 			<span style="color:#FF0000;"><b>หมายเหตุ</b> * หมายถึง ต้องระบุข้อมูล</span>

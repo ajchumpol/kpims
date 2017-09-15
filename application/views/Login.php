@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<input class="w3-input" name="i_password" id="i_password" type="password" placeholder="Password">
 
 		<button class="w3-button w3-blue w3-block w3-margin-top" type="submit">ตกลง</button>
-		<button class="w3-button w3-red w3-margin-top">ล้างข้อมูล</button><span style="margin: 15px;"><a href="#">ลืมรหัสผ่าน?<a></span>
+		<button class="w3-button w3-red w3-margin-top">ล้างข้อมูล</button><span style="margin: 15px;"><a href="#" onClick="onDev()">ลืมรหัสผ่าน?<a></span>
 		<br><br><br><br>
 		<?php
 		if(isset($error)):

@@ -20,102 +20,76 @@ class CapitalType_Model extends CI_Model {
 	}
 	
 	/**
-	 * create_user function.
+	 * create_capital_type function.
 	 * 
 	 * @access public
-	 * @param mixed $username
-	 * @param mixed $email
-	 * @param mixed $password
+	 * @param mixed $capital_name
 	 * @return bool true on success, false on failure
 	 */
-	public function create_user($username, $email, $password) {
+	public function create_capital_type($capital_name) {
 		
 		$data = array(
-			'user_name'   => $username,
-			'user_email'      => $email,
-			'user_password'   => $this->hash_password($password),
-			'user_create' => date('Y-m-j H:i:s'),
+			'capt_name'   => $capital_name
 		);
 		
-		return $this->db->insert('kpi_user', $data);
+		return $this->db->insert('kpi_capital_type', $data);
 		
 	}
 	
 	/**
-	 * resolve_user_login function.
+	 * get_capital_type function.
 	 * 
 	 * @access public
-	 * @param mixed $username
-	 * @param mixed $password
-	 * @return bool true on success, false on failure
+	 * @param mixed $id
+	 * @return object the capital type object
 	 */
-	public function resolve_user_login($username, $password) {
+	public function get_capital_type($id) {
 		
-		$this->db->select('user_password');
-		$this->db->from('kpi_user');
-		$this->db->where('user_name', $username);
-		$hash = $this->db->get()->row('user_password');
-		
-		return $this->verify_password_hash($password, $hash);
-		
-	}
-	
-	/**
-	 * get_user_id_from_username function.
-	 * 
-	 * @access public
-	 * @param mixed $username
-	 * @return int the user id
-	 */
-	public function get_user_id_from_username($username) {
-		
-		$this->db->select('user_id');
-		$this->db->from('kpi_user');
-		$this->db->where('user_name', $username);
-		return $this->db->get()->row('user_id');
-		
-	}
-	
-	/**
-	 * get_user function.
-	 * 
-	 * @access public
-	 * @param mixed $user_id
-	 * @return object the user object
-	 */
-	public function get_user($user_id) {
-		
-		$this->db->from('kpi_user');
-		$this->db->where('user_id', $user_id);
+		$this->db->from('kpi_capital_type');
+		$this->db->where('capt_id', $id);
 		return $this->db->get()->row();
 		
 	}
-	
+
 	/**
-	 * hash_password function.
+	 * get_capitals_type function.
 	 * 
-	 * @access private
-	 * @param mixed $password
-	 * @return string|bool could be a string on success, or bool false on failure
+	 * @access public
+	 * @param mixed $key
+	 * @return object the capital type object
 	 */
-	private function hash_password($password) {
-		
-		return password_hash($password, PASSWORD_BCRYPT);
-		
+	public function get_capitals_type() {
+
+		$this->db->from('kpi_capital_type');
+		$this->db->order_by("capt_id","asc");
+
+		return $this->db->get()->result();
+
 	}
 	
 	/**
-	 * verify_password_hash function.
-	 * 
-	 * @access private
-	 * @param mixed $password
-	 * @param mixed $hash
-	 * @return bool
+	 * delete_capital_type function
 	 */
-	private function verify_password_hash($password, $hash) {
+	public function delete_capital_type($id) {
 		
-		return password_verify($password, $hash);
+		$this->db->where('capt_id', $id);
+
+		return $this->db->delete('kpi_capital_type');
+
+	}
+
+	/**
+	 * update_capital_type function
+	 */
+	public function update_capital_type($id, $name) {
 		
+		$data = array(
+			'capt_name'   => $name
+		);
+		$this->db->where('capt_id', $id);
+
+		return $this->db->update('kpi_capital_type', $data);
+
 	}
 	
 }

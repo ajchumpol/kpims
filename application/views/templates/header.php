@@ -25,8 +25,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<a href="<?=base_url('index.php/ManageUser/getUser')?>" class="w3-bar-item w3-button">ข้อมูลผู้ใช้งาน</a>
 		<a href="<?=base_url('index.php/ManageCriterion/getCriterion')?>" class="w3-bar-item w3-button">ข้อมูลเกณฑ์การประเมิน</a>
 		<a href="<?=base_url('index.php/ManageCapitalType/getCapitalType')?>" class="w3-bar-item w3-button">ข้อมูลกลุ่มประเภทเงินทุนหมุนเวียน</a>
-		<a href="#" class="w3-bar-item w3-button">ข้อมูลหน่วยตัวชี้วัด</a>
-		<a href="#" class="w3-bar-item w3-button">ข้อมูลน้ำหนักตัวชี้วัด</a>
+		<a href="#" class="w3-bar-item w3-button">ข้อมูลตัวชี้วัด</a>
+		<a href="#" class="w3-bar-item w3-button">ข้อมูลตัวชี้วัดย่อย</a>
 		<a href="#" class="w3-bar-item w3-button">ข้อมูลระดับคะแนน (ตัวชี้วัดย่อย)</a>
 	  </div>
 	</div>
@@ -46,7 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div style="text-align:center;">
 <?php
 	$image_prop = array(
-          'src' => 'images/kpi_banner.png',
+          'src' => 'images/kpi_banner_v2.0.png',
           'alt' => 'KPI Management System',
           'style' => 'width:100%'
 	);

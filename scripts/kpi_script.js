@@ -165,3 +165,7 @@ function uploading(){
 	});
 
 } // end uploading
+
+function onDev(){
+	alert("อยู่ระหว่างการพัฒนา?");
+}

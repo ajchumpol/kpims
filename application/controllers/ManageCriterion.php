@@ -45,37 +45,37 @@ class ManageCriterion extends CI_Controller {
 		$this->load->library('form_validation');
 		
 		// set validation rules
-		$this->form_validation->set_rules('i_username', 'Username', 'trim|required|alpha_numeric|min_length[4]|is_unique[kpi_user.user_name]', array('is_unique' => 'This username already exists. Please choose another one.'));
-		$this->form_validation->set_rules('i_email', 'Email', 'trim|required|valid_email|is_unique[kpi_user.user_email]', array('is_unique' => 'This e-mail already exists. Please choose another one.'));
-		$this->form_validation->set_rules('i_password', 'Password', 'trim|required|min_length[6]');
-		$this->form_validation->set_rules('i_type', 'User Type', 'trim|required');
+		//$this->form_validation->set_rules('i_username', 'Username', 'trim|required|alpha_numeric|min_length[4]|is_unique[kpi_user.user_name]', array('is_unique' => 'This username already exists. Please choose another one.'));
+		//$this->form_validation->set_rules('i_email', 'Email', 'trim|required|valid_email|is_unique[kpi_user.user_email]', array('is_unique' => 'This e-mail already exists. Please choose another one.'));
+		//$this->form_validation->set_rules('i_password', 'Password', 'trim|required|min_length[6]');
+		//$this->form_validation->set_rules('i_type', 'User Type', 'trim|required');
 
-		if ($this->form_validation->run() === false) {
-			
-			$data->error = "Please check user information.";
-			redirect('ManageUser/getUser', $data);
-
-			// validation not ok, send validation errors to the view
-			$this->load->view('templates/header');
-			$this->load->view('ManageUser/getUser', $data);
-			$this->load->view('templates/footer');
-
-		} else {
-			
+		/**
+		*if ($this->form_validation->run() === false) {
+		*	
+		*	$data->error = "Please check user information.";
+		*	redirect('ManageUser/getUser', $data);
+		*
+		*	// validation not ok, send validation errors to the view
+		*	$this->load->view('templates/header');
+		*	$this->load->view('ManageUser/getUser', $data);
+		*	$this->load->view('templates/footer');
+		*
+		*} else {
+		**/	
 			// set variables from the form
-			$flname   = $this->input->post('i_flname');
-			$username = $this->input->post('i_username');
-			$birthday = $this->input->post('i_birthday');
-			$email    = $this->input->post('i_email');
-			$password = $this->input->post('i_password');
-			$address  = $this->input->post('i_address');
-			$type     = $this->input->post('i_type');
+			$cri_title = $this->input->post('i_crititle');
+			$capt_id = $this->input->post('i_capt_id');
+			$cri_wei_min = $this->input->post('i_criwei_min');
+			$cri_wei_max = $this->input->post('i_criwei_max');
+			$cri_app = $this->input->post('i_criapp');
+			$cri_app_ex = $this->input->post('i_criapp_ex');
 
-			if ($this->User_Model->create_user($flname, $username, $birthday, $email, $password, $address, $type)) {
+			if ($this->Criterion_Model->create_criterion($cri_title, $capt_id, $cri_wei_min, $cri_wei_max, $cri_app, $cri_app_ex)) {
 
-				// user creation ok
-				$data->info = "New user created.";
-				redirect('ManageUser/getUser', $data);
+				// criterion creation ok
+				$data->info = "New criterion created.";
+				redirect('ManageCriterion/getCriterion', $data);
 
 				$this->load->view('templates/header');
 				$this->load->view('ManageUser/getUser', $data);
@@ -83,9 +83,9 @@ class ManageCriterion extends CI_Controller {
 				
 			} else {
 
-				// user creation failed, this should never happen
-				$data->error = 'There was a problem creating your new account. Please try again.';
-				redirect('ManageUser/getUser', $data);
+				// criterion creation failed, this should never happen
+				$data->error = 'There was a problem creating your new criterion. Please try again.';
+				redirect('ManageCriterion/getCriterion', $data);
 				
 				// send error to the view
 				$this->load->view('templates/header');
@@ -94,17 +94,17 @@ class ManageCriterion extends CI_Controller {
 				
 			}
 			
-		}
+		//} //end if check form validation
 		
 	}
 		
 	/**
-	 * updateUser function.
+	 * updateCriterion function.
 	 * 
 	 * @access public
 	 * @return void
 	 */
-	public function updateUser($user_id) {
+	public function updateCriterion($id) {
 
 		// create the data object
 		$data = new stdClass();
@@ -115,32 +115,23 @@ class ManageCriterion extends CI_Controller {
 		
 		if(isset($_SESSION['s_user_id'])){
 
-			if(isset($_SESSION['s_user_type']) == 1)
-				$user = $this->User_Model->get_user($user_id);
-			else
-				$user = $this->User_Model->get_user($_SESSION['s_user_id']);
+			$data_one = $this->Criterion_Model->get_criterion($id);
 
-			$data->user_id = (int)$user->user_id;
-			$data->user_flname = (string)$user->user_flname;
-			$data->user_name = (string)$user->user_name;
-			$data->type_id = (int)$user->type_id;
-			$data->type_name = (string)$user->type_name;
-			$data->user_bd = (string)$user->user_bd;
-			$data->user_photo = (string)$user->user_photo;
-			$data->user_email = (string)$user->user_email;
-			$data->user_address = (string)$user->user_address;
-			$data->user_create = (string)$user->user_create;
+			$data->cri_id = (int)$data_one->cri_id;
+			$data->cri_title = (string)$data_one->cri_title;
+			$data->capt_id = (int)$data_one->capt_id;
+			//$data->capt_name = (string)$data_one->capt_name;
+			$data->cri_wei_min = (int)$data_one->cri_wei_min;
+			$data->cri_wei_max = (int)$data_one->cri_wei_max;
+			$data->cri_app = (string)$data_one->cri_kpi_app;
+			$data->cri_app_ex = (string)$data_one->cri_kpi_appexa;
 
-			$user_type = $this->UserType_Model->get_user_type();
-			$data->user_type_obj = $user_type;
+			// select all capital type data
+			$capital_type = $this->CapitalType_Model->get_capitals_type();
+			$data->capital_type_obj = $capital_type;
 
 			$this->load->view('templates/header');
-			
-			if(isset($_SESSION['s_user_type']) == 1)
-				$this->load->view('authens/UpdateUser', $data);
-			else
-				$this->load->view('authens/ChangeProfile', $data);
-
+			$this->load->view('authens/updateCriterion', $data);
 			$this->load->view('templates/footer');
 					
 		} else {
@@ -157,62 +148,13 @@ class ManageCriterion extends CI_Controller {
 	}
 
 	/**
-	 * getUserDetail function.
-	 */
-	public function getUserDetail($user_id) {
-
-		// create the data object
-		$data = new stdClass();
-		
-		// load form helper and validation library
-		$this->load->helper('form');
-		$this->load->library('form_validation');
-		
-		if(isset($_SESSION['s_user_id'])){
-
-			if(isset($_SESSION['s_user_type']) == 1)
-				$user = $this->User_Model->get_user($user_id);
-			else
-				$user = $this->User_Model->get_user($_SESSION['s_user_id']);
-
-			$data->user_id = (int)$user->user_id;
-			$data->user_flname = (string)$user->user_flname;
-			$data->user_name = (string)$user->user_name;
-			$data->type_id = (int)$user->type_id;
-			$data->type_name = (string)$user->type_name;
-			$data->user_bd = (string)$user->user_bd;
-			$data->user_photo = (string)$user->user_photo;
-			$data->user_email = (string)$user->user_email;
-			$data->user_address = (string)$user->user_address;
-			$data->user_create = (string)$user->user_create;
-			$data->user_edited = (string)$user->user_edited;
-
-			$this->load->view('templates/header');
-			if(isset($_SESSION['s_user_type']) == 1)
-				$this->load->view('authens/DetailUser', $data);
-			else
-				$this->load->view('authens/ProfileUser', $data);
-			$this->load->view('templates/footer');
-
-		} else {
-
-			$data->error = 'Permission denied.';
-				
-			// send error to the view
-			$this->load->view('templates/header');
-			$this->load->view('Login', $data);
-			$this->load->view('templates/footer');
-				
-		}
-	}
-
-	/**
-	 * updatingUser function.
+	 * updatingCriterion function.
 	 * 
 	 * @access public
 	 * @return void
 	 */
-	public function updatingUser() {
+	public function updatingCriterion() {
+
 		// create the data object
 		$data = new stdClass();
 		
@@ -220,22 +162,24 @@ class ManageCriterion extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 
-		$user_id = $this->input->post('i_userid');
-		$user_flname = $this->input->post('i_flname');
-		$user_email = $this->input->post('i_email');
-		$user_address = $this->input->post('i_address');
-		$user_bd = $this->input->post('i_birthday');
+		// $title, $type=0, $weight_min, $weight_max, $approach="", $approach_ex=""
+		$cri_id = $this->input->post('i_cri_id');
+		$cri_title = $this->input->post('i_crititle');
+		$capt_id = $this->input->post('i_capt_id');
+		$cri_wei_min = $this->input->post('i_criwei_min');
+		$cri_wei_max = $this->input->post('i_criwei_max');
+		$cri_app = $this->input->post('i_criapp');
+		$cri_app_ex = $this->input->post('i_criapp_ex');
 
 		if(isset($_SESSION['s_user_id'])){
-			$result = $this->User_Model->update_user($user_id, $user_flname, $user_email, $user_address, $user_bd);
+			//$id, $title, $type=0, $weight_min, $weight_max, $approach="", $approach_ex=""
+			$result = $this->Criterion_Model->update_criterion($cri_id, $cri_title, $capt_id, $cri_wei_min, $cri_wei_max, $cri_app, $cri_app_ex);
 			if($result){
-				$data->info = "Updated user information.";
-				if(isset($_SESSION['s_user_type']) == 1)
-					redirect('ManageUser/getUser');
-				redirect('authens/MainUser');
+				$data->info = "Updated criterion information successfully.";
+				redirect('ManageCriterion/getCriterion');
 			}else{
-				$data->error = 'User information is wrong.';
-				redirect('ManageUser/updateUser/'.$user_id);
+				$data->error = 'Criterion information is wrong.';
+				redirect('ManageCriterion/updateCriterion/'.$cri_id);
 			}
 		}else{
 			$data->error = 'Permission denied.';
@@ -249,12 +193,12 @@ class ManageCriterion extends CI_Controller {
 	}
 	
 	/**
-	 * getUser function.
+	 * getCriterion function.
 	 * 
 	 * @access public
 	 * @return void
 	 */
-	public function getUser($offset = 0, $key = '') {
+	public function getCriterion($offset = 0, $key = '') {
 		
 		// create the data object
 		$data = new stdClass();
@@ -265,12 +209,12 @@ class ManageCriterion extends CI_Controller {
 	        //how many blogs will be shown in a page
 	        $limit = 10;
 
-	        $result = $this->User_Model->get_users_pg($limit, $offset, $key);
+	        $result = $this->Criterion_Model->get_criterions_pg($limit, $offset, $key);
 
 	        // load pagination library
 	        $this->load->library('pagination');
 	        $config = array();
-	        $config['base_url'] = site_url("ManageUser/getUser/");
+	        $config['base_url'] = site_url("ManageCriterion/getCriterion/");
 	        $config['total_rows'] = $result['num_rows'];
 	        $config['per_page'] = $limit;
 	        //which uri segment indicates pagination number
@@ -296,18 +240,18 @@ class ManageCriterion extends CI_Controller {
 
 	        $this->pagination->initialize($config);
 
-	        $data->user_pg = $this->pagination->create_links();
+	        $data->data_pg = $this->pagination->create_links();
 
 			// select all user data
-			$user = $this->User_Model->get_users($key);
-			$data->user_obj = $user;
+			$alldata = $this->Criterion_Model->get_criterions($key);
+			$data->data_obj = $alldata;
 
-			// select all user type data
-			$user_type = $this->UserType_Model->get_user_type();
-			$data->user_type_obj = $user_type;
+			// select all capital type data
+			$capital_type = $this->CapitalType_Model->get_capitals_type();
+			$data->capital_type_obj = $capital_type;
 
 			$this->load->view('templates/header');
-			$this->load->view('authens/ManageUser', $data);
+			$this->load->view('authens/ManageCriterion', $data);
 			$this->load->view('templates/footer');
 			
 		} else {
@@ -325,19 +269,19 @@ class ManageCriterion extends CI_Controller {
 	/**
 	 * deleting function.
 	 */
-	public function deleting($user_id) {
+	public function deleting($id) {
 
 		// create the data object
 		$data = new stdClass();
 
-		if(isset($user_id) && $user_id != 1 && isset($_SESSION['s_user_type'])==1){
+		if(isset($id) && isset($_SESSION['s_user_type'])==1){
 
 			// create the data object
 			$data = new stdClass();
 
-			$user = $this->User_Model->delete_user($user_id);
-			$data->user_obj = $user;
-			$data->info = "Deleted user successfully.";
+			$crit = $this->Criterion_Model->delete_criterion($id);
+			$data->data_obj = $crit;
+			$data->info = "Deleted criterion successfully.";
 
 		} else {
 
@@ -345,139 +289,9 @@ class ManageCriterion extends CI_Controller {
 
 		}
 
-		redirect('ManageUser/getUser');
+		redirect('ManageCriterion/getCriterion');
 
 	}
 
-	/**
-	 * uploading function.
-	 */
-	public function uploading(){
-
-		// create the data object
-		$data = new stdClass();
-
-		if(isset($_SESSION['s_user_id'])){
-			$target_dir = "images/profiles/";
-			$new_name = strtotime(date('Y-m-j H:i:s'));
-			$target_file = $target_dir . basename($_FILES["i_photo"]["name"]);
-			$uploadOk = 1;
-			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-			// Check if image file is a actual image or fake image
-			if(isset($_POST["submit"])) {
-			    $check = getimagesize($_FILES["i_photo"]["tmp_name"]);
-			    if($check !== false) {
-			        echo "File is an image - " . $check["mime"] . ".";
-			        $uploadOk = 1;
-			    } else {
-			        echo "File is not an image.";
-			        $uploadOk = 0;
-			    }
-			} // check fake image
-
-			// Check if file already exists
-			else if (file_exists($target_file)) {
-			    echo "Sorry, file already exists.";
-			    $uploadOk = 0;
-			}
-			// Check file size
-			else if ($_FILES["i_photo"]["size"] > 500000) {
-			    echo "Sorry, your file is too large (> 500 KB.).";
-			    $uploadOk = 0;
-			}
-			// Allow certain file formats
-			else if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-			&& $imageFileType != "gif" ) {
-			    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-			    $uploadOk = 0;
-			}
-			// Check if $uploadOk is set to 0 by an error
-			if ($uploadOk == 0) {
-			    echo "Sorry, your file was not uploaded.";
-			// if everything is ok, try to upload file
-			} else {
-				$target_file = $new_name.'-'.$target_file;
-			    if (move_uploaded_file($_FILES["i_photo"]["tmp_name"], $target_file)) {
-					$result = $this->User_Model->update_photo($_SESSION['s_user_id'], $target_file);
-					if($result){
-			        	echo "The file ". basename( $_FILES["i_photo"]["name"]). " has been uploaded.";
-			    	}else{
-			    		echo "The file ". basename( $_FILES["i_photo"]["name"]). " has not been upload.";
-			    	}
-			    } else {
-			        echo "Sorry, there was an error uploading your file.";
-			    }
-			}
-
-			//$data->info = "Updated user picture successfully.";
-			//$_SESSION['s_info'] = "Updated user picture successfully.";
-
-			redirect('MainUser');
-		} // check user session
-
-	} // end uploading function
-
-	/**
-	 * changePassword function.
-	 */
-	public function changePassword () {
-
-		// create the data object
-		//$data = new stdClass();
-
-		$this->load->view('templates/header');
-		$this->load->view('authens/ChangePassword');
-		$this->load->view('templates/footer');
-
-	} // end changePassword function.
-
-	/**
-	 * updatingPassword function.
-	 */
-	public function updatingPassword () {
-
-		// create the data object
-		$data = new stdClass();
-
-		if(isset($_SESSION['s_user_id'])){
-
-			$opassword = $this->input->post('i_opassword');
-			//$onpassword = $this->User_Model->hash_password($opassword);
-			$npassword = $this->input->post('i_password');
-
-			$user    = $this->User_Model->get_user($_SESSION['s_user_id']);
-			$cpassword = (string)$user->user_password;
-
-			if($this->User_Model->verify_password_hash($opassword, $cpassword)){
-
-				$result = $this->User_Model->update_password($_SESSION['s_user_id'], $npassword);
-
-				$data->info = "Changed password successfully.";
-				//$this->load->view('templates/header');
-				//$this->load->view('authens/MainUser', $data);
-				//$this->load->view('templates/footer');
-				//echo "<script>alert('คุณเปลี่ยนรหัสผ่านสำเร็จ');</script>";
-				redirect('MainUser');
-
-			} else {
-
-				$data->error = "Current password is wrong!";
-				$this->load->view('templates/header');
-				$this->load->view('authens/ChangePassword', $data);
-				$this->load->view('templates/footer');
-
-			}
-
-		} else {
-
-			// there user was not logged in, we cannot logged him out,
-			$data->error = "Permission denied.";
-			$this->load->view('templates/header');
-			$this->load->view('Login', $data);
-			$this->load->view('templates/footer');
-
-		}
-
-	} // end updatingPassword function.
 	
 }

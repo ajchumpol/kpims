@@ -25,9 +25,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<a href="<?=base_url('index.php/ManageUser/getUser')?>" class="w3-bar-item w3-button">ข้อมูลผู้ใช้งาน</a>
 		<a href="<?=base_url('index.php/ManageCriterion/getCriterion')?>" class="w3-bar-item w3-button">ข้อมูลเกณฑ์การประเมิน</a>
 		<a href="<?=base_url('index.php/ManageCapitalType/getCapitalType')?>" class="w3-bar-item w3-button">ข้อมูลกลุ่มประเภทเงินทุนหมุนเวียน</a>
-		<a href="#" class="w3-bar-item w3-button">ข้อมูลตัวชี้วัด</a>
-		<a href="#" class="w3-bar-item w3-button">ข้อมูลตัวชี้วัดย่อย</a>
-		<a href="#" class="w3-bar-item w3-button">ข้อมูลระดับคะแนน (ตัวชี้วัดย่อย)</a>
+		<a href="<?=base_url('index.php/ManageCokpi/getCokpi')?>" class="w3-bar-item w3-button">ข้อมูลตัวชี้วัด</a>
+		<a href="#" onClick="onDev()" class="w3-bar-item w3-button">ข้อมูลตัวชี้วัดย่อย</a>
+		<a href="#" onClick="onDev()" class="w3-bar-item w3-button">ข้อมูลประเด็นย่อยที่ใช้พิจารณา</a>
+		<a href="<?=base_url('index.php/ManageGrade/getGrade')?>" class="w3-bar-item w3-button">ข้อมูลระดับคะแนน (ตัวชี้วัดย่อย)</a>
 	  </div>
 	</div>
 	<?php } ?>

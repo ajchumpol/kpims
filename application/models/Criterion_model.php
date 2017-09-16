@@ -69,7 +69,7 @@ class Criterion_Model extends CI_Model {
 	 * @param mixed $key
 	 * @return object the criterion object
 	 */
-	public function get_criterions($key) {
+	public function get_criterions($key='') {
 
 		$this->db->from('kpi_criterion');
 		//$this->db->join('kpi_capital_type', 'kpi_criterion.capt_id = kpi_capital_type.capt_id');
@@ -80,9 +80,9 @@ class Criterion_Model extends CI_Model {
 
 	}
 
-	/** start here **/
 
 	function get_criterions_pg($limit, $offset, $key='') {
+
     	if ($offset > 0) {
         	$offset = ($offset - 1) * $limit;
     	}

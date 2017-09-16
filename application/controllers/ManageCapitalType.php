@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * ManageCriterion class.
+ * ManageCapitalType class.
  * 
  * @extends CI_Controller
  */
-class ManageCriterion extends CI_Controller {
+class ManageCapitalType extends CI_Controller {
 	/**
 	 * __construct function.
 	 * 
@@ -20,7 +20,6 @@ class ManageCriterion extends CI_Controller {
 		$this->load->helper(array('url'));
 		$this->load->helper('html');
 		$this->load->helper('form');
-		$this->load->model('Criterion_Model');
 		$this->load->model('CapitalType_Model');
 		
 	}
@@ -64,32 +63,27 @@ class ManageCriterion extends CI_Controller {
 		*} else {
 		**/	
 			// set variables from the form
-			$cri_title = $this->input->post('i_crititle');
-			$capt_id = $this->input->post('i_capt_id');
-			$cri_wei_min = $this->input->post('i_criwei_min');
-			$cri_wei_max = $this->input->post('i_criwei_max');
-			$cri_app = $this->input->post('i_criapp');
-			$cri_app_ex = $this->input->post('i_criapp_ex');
+			$capt_name = $this->input->post('i_capt_name');
 
-			if ($this->Criterion_Model->create_criterion($cri_title, $capt_id, $cri_wei_min, $cri_wei_max, $cri_app, $cri_app_ex)) {
+			if ($this->CapitalType_Model->create_capital_type($capt_name)) {
 
 				// criterion creation ok
-				$data->info = "New criterion created.";
-				redirect('ManageCriterion/getCriterion', $data);
+				$data->info = "New capital type created.";
+				redirect('ManageCapitalType/getCapitalType', $data);
 
 				$this->load->view('templates/header');
-				$this->load->view('ManageUser/getUser', $data);
+				$this->load->view('ManageCapitalType/getCapitalType', $data);
 				$this->load->view('templates/footer');
 				
 			} else {
 
 				// criterion creation failed, this should never happen
-				$data->error = 'There was a problem creating your new criterion. Please try again.';
-				redirect('ManageCriterion/getCriterion', $data);
+				$data->error = 'There was a problem creating your new capital type. Please try again.';
+				redirect('ManageCapitalType/getCapitalType', $data);
 				
 				// send error to the view
 				$this->load->view('templates/header');
-				$this->load->view('ManageUser/getUser', $data);
+				$this->load->view('ManageCapitalType/getCapitalType', $data);
 				$this->load->view('templates/footer');
 				
 			}
@@ -99,12 +93,12 @@ class ManageCriterion extends CI_Controller {
 	}
 		
 	/**
-	 * updateCriterion function.
+	 * updateCapitalType function.
 	 * 
 	 * @access public
 	 * @return void
 	 */
-	public function updateCriterion($id) {
+	public function updateCapitalType($id) {
 
 		// create the data object
 		$data = new stdClass();
@@ -115,23 +109,13 @@ class ManageCriterion extends CI_Controller {
 		
 		if(isset($_SESSION['s_user_id'])){
 
-			$data_one = $this->Criterion_Model->get_criterion($id);
+			$data_one = $this->CapitalType_Model->get_capital_type($id);
 
-			$data->cri_id = (int)$data_one->cri_id;
-			$data->cri_title = (string)$data_one->cri_title;
 			$data->capt_id = (int)$data_one->capt_id;
-			//$data->capt_name = (string)$data_one->capt_name;
-			$data->cri_wei_min = (int)$data_one->cri_wei_min;
-			$data->cri_wei_max = (int)$data_one->cri_wei_max;
-			$data->cri_app = (string)$data_one->cri_kpi_app;
-			$data->cri_app_ex = (string)$data_one->cri_kpi_appexa;
-
-			// select all capital type data
-			$capital_type = $this->CapitalType_Model->get_capitals_type();
-			$data->capital_type_obj = $capital_type;
+			$data->capt_name = (string)$data_one->capt_name;
 
 			$this->load->view('templates/header');
-			$this->load->view('authens/updateCriterion', $data);
+			$this->load->view('authens/updateCapitalType', $data);
 			$this->load->view('templates/footer');
 					
 		} else {
@@ -148,12 +132,12 @@ class ManageCriterion extends CI_Controller {
 	}
 
 	/**
-	 * updatingCriterion function.
+	 * updatingCapitalType function.
 	 * 
 	 * @access public
 	 * @return void
 	 */
-	public function updatingCriterion() {
+	public function updatingCapitalType() {
 
 		// create the data object
 		$data = new stdClass();
@@ -162,24 +146,17 @@ class ManageCriterion extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 
-		// $title, $type=0, $weight_min, $weight_max, $approach="", $approach_ex=""
-		$cri_id = $this->input->post('i_cri_id');
-		$cri_title = $this->input->post('i_crititle');
 		$capt_id = $this->input->post('i_capt_id');
-		$cri_wei_min = $this->input->post('i_criwei_min');
-		$cri_wei_max = $this->input->post('i_criwei_max');
-		$cri_app = $this->input->post('i_criapp');
-		$cri_app_ex = $this->input->post('i_criapp_ex');
+		$capt_name = $this->input->post('i_capt_name');
 
 		if(isset($_SESSION['s_user_id'])){
-			//$id, $title, $type=0, $weight_min, $weight_max, $approach="", $approach_ex=""
-			$result = $this->Criterion_Model->update_criterion($cri_id, $cri_title, $capt_id, $cri_wei_min, $cri_wei_max, $cri_app, $cri_app_ex);
+			$result = $this->CapitalType_Model->update_capital_type($capt_id, $capt_name);
 			if($result){
-				$data->info = "Updated criterion information successfully.";
-				redirect('ManageCriterion/getCriterion');
+				$data->info = "Updated capital type successfully.";
+				redirect('ManageCapitalType/getCapitalType');
 			}else{
-				$data->error = 'Criterion information is wrong.';
-				redirect('ManageCriterion/updateCriterion/'.$cri_id);
+				$data->error = 'Capital type information is wrong.';
+				redirect('ManageCapitalType/updateCapitalType/'.$capt_id);
 			}
 		}else{
 			$data->error = 'Permission denied.';
@@ -193,12 +170,12 @@ class ManageCriterion extends CI_Controller {
 	}
 	
 	/**
-	 * getCriterion function.
+	 * getCapitalType function.
 	 * 
 	 * @access public
 	 * @return void
 	 */
-	public function getCriterion($offset = 0, $key = '') {
+	public function getCapitalType($offset = 0, $key = '') {
 		
 		// create the data object
 		$data = new stdClass();
@@ -209,7 +186,7 @@ class ManageCriterion extends CI_Controller {
 	        //how many blogs will be shown in a page
 	        $limit = 10;
 
-	        $result = $this->Criterion_Model->get_criterions_pg($limit, $offset, $key);
+	        $result = $this->CapitalType_Model->get_capitals_type_pg($limit, $offset, $key);
 
 	        // load pagination library
 	        $this->load->library('pagination');
@@ -242,16 +219,12 @@ class ManageCriterion extends CI_Controller {
 
 	        $data->data_pg = $this->pagination->create_links();
 
-			// select all user data
-			$alldata = $this->Criterion_Model->get_criterions($key);
-			$data->data_obj = $alldata;
-
 			// select all capital type data
 			$capital_type = $this->CapitalType_Model->get_capitals_type($key);
-			$data->capital_type_obj = $capital_type;
+			$data->data_obj = $capital_type;
 
 			$this->load->view('templates/header');
-			$this->load->view('authens/ManageCriterion', $data);
+			$this->load->view('authens/ManageCapitalType', $data);
 			$this->load->view('templates/footer');
 			
 		} else {

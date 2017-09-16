@@ -76,7 +76,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				if(count($data_type_arr) == 0):
 					echo "-";
 				endif;
-				$chkStr = "";
 				for ($t_no = 0; $t_no < count($data_type_arr); $t_no++):
 					if($data_type_arr[$t_no]['capt_id'] == $capt_id):
 						$chkStr = "checked";

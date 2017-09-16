@@ -23,13 +23,13 @@ class CapitalType_Model extends CI_Model {
 	 * create_capital_type function.
 	 * 
 	 * @access public
-	 * @param mixed $capital_name
+	 * @param mixed $name
 	 * @return bool true on success, false on failure
 	 */
-	public function create_capital_type($capital_name) {
+	public function create_capital_type($name) {
 		
 		$data = array(
-			'capt_name'   => $capital_name
+			'capt_name'   => $name
 		);
 		
 		return $this->db->insert('kpi_capital_type', $data);
@@ -58,12 +58,31 @@ class CapitalType_Model extends CI_Model {
 	 * @param mixed $key
 	 * @return object the capital type object
 	 */
-	public function get_capitals_type() {
+	public function get_capitals_type($key="") {
 
 		$this->db->from('kpi_capital_type');
+		$this->db->like('capt_name', $key);
 		$this->db->order_by("capt_id","asc");
 
 		return $this->db->get()->result();
+
+	}
+
+	function get_capitals_type_pg($limit, $offset, $key='') {
+		
+    	if ($offset > 0) {
+        	$offset = ($offset - 1) * $limit;
+    	}
+
+		$this->db->from('kpi_capital_type');
+		$this->db->like('capt_name', $key);
+		$this->db->order_by("capt_id","asc");
+
+		$result['num_rows'] = $this->db->count_all_results();
+
+		$this->db->limit($limit, $offset);
+
+    	return $result;
 
 	}
 	

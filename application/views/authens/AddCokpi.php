@@ -167,7 +167,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</table>
 			</form>
 			
-			<button class="w3-btn w3-blue" onclick="topFunction()" id="myBtn" title="Go to top"><i class="material-icons" style="vertical-align:middle;">arrow_upward</i></button>
+			<!-- button class="w3-btn w3-blue" onclick="topFunction()" id="myBtn" title="Go to top"><i class="material-icons" style="vertical-align:middle;">arrow_upward</i></button -->
 
 		  </div>
 		  <br>

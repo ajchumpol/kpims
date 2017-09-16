@@ -131,7 +131,7 @@ class ManageCriterion extends CI_Controller {
 			$data->capital_type_obj = $capital_type;
 
 			$this->load->view('templates/header');
-			$this->load->view('authens/updateCriterion', $data);
+			$this->load->view('authens/UpdateCriterion', $data);
 			$this->load->view('templates/footer');
 					
 		} else {

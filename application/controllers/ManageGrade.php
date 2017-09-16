@@ -100,7 +100,7 @@ class ManageGrade extends CI_Controller {
 			$data->gra_title5 = (string)$data_one->gra_title5;
 
 			$this->load->view('templates/header');
-			$this->load->view('authens/updateGrade', $data);
+			$this->load->view('authens/UpdateGrade', $data);
 			$this->load->view('templates/footer');
 					
 		} else {
@@ -145,7 +145,7 @@ class ManageGrade extends CI_Controller {
 				redirect('ManageGrade/getGrade');
 			}else{
 				$data->error = 'Grade information is wrong.';
-				redirect('ManageGrade/updateGrade/'.$capt_id);
+				redirect('ManageGrade/UpdateGrade/'.$capt_id);
 			}
 		}else{
 			$data->error = 'Permission denied.';

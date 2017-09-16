@@ -127,7 +127,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</tr>
 			<tr>
 			<td><b>น้ำหนัก <span style="color:#FF0000;">*</span></b></td>
-			<td>- <input class="w3-input w3-border" style="width:10%" type="number" id="i_criwei_min" name="i_criwei_min" required>/<input class="w3-input w3-border" style="width:10%" type="number" id="i_criwei_max" name="i_criwei_max" required> +</td>
+			<td><span>- <input class="w3-border" style="width:10%" type="number" id="i_criwei_min" name="i_criwei_min" required>/<input class="w3-border" style="width:10%" type="number" id="i_criwei_max" name="i_criwei_max" required> +</span></td>
 			</tr>
 			<tr>
 			<td><b>ประเภทเงินทุนหมุนเวียน</b></td>

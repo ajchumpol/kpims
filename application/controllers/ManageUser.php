@@ -381,8 +381,8 @@ class ManageUser extends CI_Controller {
 			    $uploadOk = 0;
 			}
 			// Check file size
-			else if ($_FILES["i_photo"]["size"] > 500000) {
-			    echo "Sorry, your file is too large (> 500 KB.).";
+			else if ($_FILES["i_photo"]["size"] > 1000000) {
+			    echo "Sorry, your file is too large (> 1000 KB.).";
 			    $uploadOk = 0;
 			}
 			// Allow certain file formats
@@ -396,7 +396,7 @@ class ManageUser extends CI_Controller {
 			    echo "Sorry, your file was not uploaded.";
 			// if everything is ok, try to upload file
 			} else {
-				$target_file = $new_name.'-'.$target_file;
+				$target_file = $target_file.'-'.$new_name;
 			    if (move_uploaded_file($_FILES["i_photo"]["tmp_name"], $target_file)) {
 					$result = $this->User_Model->update_photo($_SESSION['s_user_id'], $target_file);
 					if($result){
@@ -411,8 +411,8 @@ class ManageUser extends CI_Controller {
 
 			//$data->info = "Updated user picture successfully.";
 			//$_SESSION['s_info'] = "Updated user picture successfully.";
-
 			redirect('MainUser');
+
 		} // check user session
 
 	} // end uploading function

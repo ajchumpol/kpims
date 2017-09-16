@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '127.0.0.1',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'KPIFund_DB',
+	'hostname' => 'localhost',
+	'username' => 'kpiadmin',
+	'password' => 'AdminPass',
+	'database' => 'kpifund_db',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

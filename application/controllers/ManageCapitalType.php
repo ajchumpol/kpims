@@ -115,7 +115,7 @@ class ManageCapitalType extends CI_Controller {
 			$data->capt_name = (string)$data_one->capt_name;
 
 			$this->load->view('templates/header');
-			$this->load->view('authens/updateCapitalType', $data);
+			$this->load->view('authens/UpdateCapitalType', $data);
 			$this->load->view('templates/footer');
 					
 		} else {
@@ -156,7 +156,7 @@ class ManageCapitalType extends CI_Controller {
 				redirect('ManageCapitalType/getCapitalType');
 			}else{
 				$data->error = 'Capital type information is wrong.';
-				redirect('ManageCapitalType/updateCapitalType/'.$capt_id);
+				redirect('ManageCapitalType/UpdateCapitalType/'.$capt_id);
 			}
 		}else{
 			$data->error = 'Permission denied.';
@@ -191,7 +191,7 @@ class ManageCapitalType extends CI_Controller {
 	        // load pagination library
 	        $this->load->library('pagination');
 	        $config = array();
-	        $config['base_url'] = site_url("ManageCriterion/getCriterion/");
+	        $config['base_url'] = site_url("ManageCaptitalType/getCapitalType/");
 	        $config['total_rows'] = $result['num_rows'];
 	        $config['per_page'] = $limit;
 	        //which uri segment indicates pagination number
@@ -249,12 +249,9 @@ class ManageCapitalType extends CI_Controller {
 
 		if(isset($id) && isset($_SESSION['s_user_type'])==1){
 
-			// create the data object
-			$data = new stdClass();
-
-			$crit = $this->Criterion_Model->delete_criterion($id);
+			$crit = $this->CapitalType_Model->delete_capital_type($id);
 			$data->data_obj = $crit;
-			$data->info = "Deleted criterion successfully.";
+			$data->info = "Deleted capital type successfully.";
 
 		} else {
 
@@ -262,7 +259,7 @@ class ManageCapitalType extends CI_Controller {
 
 		}
 
-		redirect('ManageCriterion/getCriterion');
+		redirect('ManageCapitalType/getCapitalType');
 
 	}
 

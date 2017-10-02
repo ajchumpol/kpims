@@ -58,29 +58,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			  <div class="w3-row">
 			    <a href="ManageUser/getUser" onclick="openCity(event, 'Cate01');">
-			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลผู้ใช้งาน</div>
+			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลผู้ใช้งาน</div>
 			    </a>
 			    <a href="ManageCriterion/getCriterion" onclick="openCity(event, 'Cate02');">
-			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลเกณฑ์การประเมิน</div>
+			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลเกณฑ์การประเมิน</div>
 			    </a>
 			    <a href="ManageCapitalType/getCapitalType" onclick="openCity(event, 'Cate03');">
-			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลกลุ่มประเภทเงินทุนหมุนเวียน</div>
+			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลกลุ่มประเภทเงินทุนหมุนเวียน</div>
 			    </a>
 			  </div>
 			  <div class="w3-row">
 			    <a href="ManageCokpi/getCokpi" onclick="openCity(event, 'Cate04');">
-			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลตัวชี้วัด</div>
+			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลตัวชี้วัด</div>
 			    </a>
-			    <a href="javascript:onDev();" onclick="openCity(event, 'Cate05');">
-			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลตัวชี้วัดย่อย</div>
+			    <a href="ManageCokpi/getSubkpi" onclick="openCity(event, 'Cate05');">
+			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลตัวชี้วัดย่อย</div>
 			    </a>
-			    <a href="javascript:onDev();" onclick="openCity(event, 'Cate06');">
-			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลประเด็นย่อยที่ใช้พิจารณา</div>
+			    <a href="ManageCokpi/getSubissue" onclick="openCity(event, 'Cate06');">
+			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลประเด็นย่อยที่ใช้พิจารณา</div>
 			    </a>
 			  </div>
 			  <div class="w3-row">
 			    <a href="ManageGrade/getGrade" onclick="openCity(event, 'Cate07');">
-			      <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลระดับคะแนน (ตัวชี้วัดย่อย)</div>
+			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ข้อมูลระดับคะแนน (ตัวชี้วัดย่อย)</div>
 			    </a>
 			  </div>
 			</div>

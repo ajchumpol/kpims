@@ -64,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<td><?=$data_cokpi_arr[$j_no]['cokpi_title']?></td>
 				<td class="w3-center"><?=$data_cokpi_arr[$j_no]['cokpi_wei']?></td>
 				<td><?=$data_cokpi_arr[$j_no]['cokpi_app']?></td>
-				<td class="w3-center"><a href="#" onClick="onDev();"><i class="material-icons" style="vertical-align:middle;">description</i></a></td>
+				<td class="w3-center"><a href="<?=base_url('index.php/ManageCokpi/addSubkpi/').$data_cokpi_arr[$j_no]['cri_id'].'/'.$data_cokpi_arr[$j_no]['cokpi_id']?>"><i class="material-icons" style="vertical-align:middle;">description</i></a></td>
 				<td class="w3-center"><a href="<?=base_url('index.php/ManageCokpi/updateCokpi/').$data_cokpi_arr[$j_no]['cokpi_id'].'/'.$data_cokpi_arr[$j_no]['cri_id']?>#ADD"><i class="material-icons" style="vertical-align:middle;">edit</i></a></td>
 				<td class="w3-center"><a href="<?=base_url('index.php/ManageCokpi/deleting/').$data_cokpi_arr[$j_no]['cokpi_id'].'/'.$data_cokpi_arr[$j_no]['cri_id']?>" onclick="return confirmation('กรุณายืนยันเพื่อลบข้อมูลตัวชี้วัด ?')"><i class="material-icons" style="vertical-align:middle;">delete</i></a></td>
 			</tr>

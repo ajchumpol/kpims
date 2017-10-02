@@ -83,7 +83,7 @@ class User_Model extends CI_Model {
 	 * @param mixed $email
 	 * @return int the user id
 	 */
-	public function get_user_id_from_username($username, $email) {
+	public function get_user_id_from_username($username, $email="") {
 		
 		$this->db->select('user_id');
 		$this->db->from('kpi_user');

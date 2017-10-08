@@ -90,7 +90,7 @@ class User_Model extends CI_Model {
 		$this->db->where('user_name', $username);
 		$this->db->or_where('user_email', $email);
 		$this->db->where('user_deleted', b'0');
-		return $this->db->get()->num_rows();
+		return $this->db->get()->row('user_id');
 		
 	}
 

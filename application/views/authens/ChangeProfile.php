@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<tr>
 		<td style="vertical-align:top;border:0px;">
 			<div class="w3-container">
-			<h3 class="w3-leftbar w3-border-blue w3-pale-blue" style="padding:15px;"><a href="<?=base_url('index.php/authens/MainUser')?>"><i class="material-icons" style="vertical-align:middle;">arrow_back</i></a> หน้าหลักผู้ใช้งาน</h3>
+			<h3 class="w3-leftbar w3-border-blue w3-pale-blue" style="padding:15px;"><a href="<?=base_url('index.php/MainUser')?>"><i class="material-icons" style="vertical-align:middle;">arrow_back</i></a> หน้าหลักผู้ใช้งาน</h3>
 			<table class="w3-table-all w3-border">
 		
 			<?php
@@ -101,7 +101,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<tr>
 			<td colspan="2"><button type="submit" class="w3-btn w3-blue" id="i_submit" onclick="return validateUpdateUser('กรุณายืนยันการแก้ไขข้อมูล?');">แก้ไข</button>
 			<button type="reset" class="w3-btn w3-blue">เคลียร์</button>
-			<a href="<?=base_url('index.php/authens/MainUser')?>" class="w3-button w3-red">ย้อนกลับ</a>
+			<a href="<?=base_url('index.php/MainUser')?>" class="w3-button w3-red">ย้อนกลับ</a>
 			<span style="color:#FF0000;"><b>หมายเหตุ</b> * หมายถึง ต้องระบุข้อมูล</span>
 			</td>
 			</tr>

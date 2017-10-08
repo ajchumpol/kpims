@@ -115,7 +115,7 @@ class ManageUser extends CI_Controller {
 		
 		if(isset($_SESSION['s_user_id'])){
 
-			if(isset($_SESSION['s_user_type']) == 1)
+			if($_SESSION['s_user_type'] == 1)
 				$user = $this->User_Model->get_user($user_id);
 			else
 				$user = $this->User_Model->get_user($_SESSION['s_user_id']);
@@ -136,7 +136,7 @@ class ManageUser extends CI_Controller {
 
 			$this->load->view('templates/header');
 			
-			if(isset($_SESSION['s_user_type']) == 1)
+			if($_SESSION['s_user_type'] == 1)
 				$this->load->view('authens/UpdateUser', $data);
 			else
 				$this->load->view('authens/ChangeProfile', $data);
@@ -170,7 +170,7 @@ class ManageUser extends CI_Controller {
 		
 		if(isset($_SESSION['s_user_id'])){
 
-			if(isset($_SESSION['s_user_type']) == 1)
+			if($_SESSION['s_user_type'] == 1)
 				$user = $this->User_Model->get_user($user_id);
 			else
 				$user = $this->User_Model->get_user($_SESSION['s_user_id']);
@@ -188,7 +188,7 @@ class ManageUser extends CI_Controller {
 			$data->user_edited = (string)$user->user_edited;
 
 			$this->load->view('templates/header');
-			if(isset($_SESSION['s_user_type']) == 1)
+			if($_SESSION['s_user_type'] == 1)
 				$this->load->view('authens/DetailUser', $data);
 			else
 				$this->load->view('authens/ProfileUser', $data);
@@ -230,7 +230,7 @@ class ManageUser extends CI_Controller {
 			$result = $this->User_Model->update_user($user_id, $user_flname, $user_email, $user_address, $user_bd);
 			if($result){
 				$data->info = "Updated user information.";
-				if(isset($_SESSION['s_user_type']) == 1)
+				if($_SESSION['s_user_type'] == 1)
 					redirect('ManageUser/getUser');
 				redirect('authens/MainUser');
 			}else{
@@ -330,7 +330,7 @@ class ManageUser extends CI_Controller {
 		// create the data object
 		$data = new stdClass();
 
-		if(isset($user_id) && $user_id != 1 && isset($_SESSION['s_user_type'])==1){
+		if(isset($user_id) && $user_id != 1 && $_SESSION['s_user_type']==1){
 
 			// create the data object
 			$data = new stdClass();

@@ -18,8 +18,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<a href="<?=base_url('index.php/MainUser')?>" class="w3-bar-item w3-button"><i class="material-icons" style="vertical-align:middle;">home</i></a>
 	<a href="#" onclick="document.getElementById('idAbout').style.display='block'" class="w3-bar-item w3-button">เกี่ยวกับเว็บไซต์</a>
 	<a href="#" onclick="document.getElementById('idContact').style.display='block'" class="w3-bar-item w3-button">ติดต่อเรา</a>
-	<?php if(isset($_SESSION['s_user_logged_in']) && isset($_SESSION['s_user_type']) == 1){ ?>
 	<div class="w3-dropdown-hover">
+	<?php if(isset($_SESSION['s_user_logged_in']) && $_SESSION['s_user_type'] == 1){ ?>
 	  <a href="#" class="w3-bar-item w3-button">ข้อมูลหลัก</a>
 	  <div class="w3-dropdown-content w3-bar-block w3-blue" style="top:38px;">
 		<a href="<?=base_url('index.php/ManageUser/getUser')?>" class="w3-bar-item w3-button">ข้อมูลผู้ใช้งาน</a>
@@ -30,8 +30,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<a href="<?=base_url('index.php/ManageCokpi/getSubissue')?>" class="w3-bar-item w3-button">ข้อมูลประเด็นย่อยที่ใช้พิจารณา</a>
 		<a href="<?=base_url('index.php/ManageGrade/getGrade')?>" class="w3-bar-item w3-button">ข้อมูลระดับคะแนน (ตัวชี้วัดย่อย)</a>
 	  </div>
-	</div>
+	<?php } else if(isset($_SESSION['s_user_logged_in']) && $_SESSION['s_user_type'] == 3){ ?>
+	  <a href="#" class="w3-bar-item w3-button">รายการดำเนินงาน</a>
+	  <div class="w3-dropdown-content w3-bar-block w3-blue" style="top:38px;">
+		<a href="<?=base_url('index.php/ManageDocument/getDocument')?>" class="w3-bar-item w3-button">กำหนดเกณฑ์การประเมินฯ รายปีบัญชี</a>
+		<a href="<?=base_url('index.php/ManageDocument/getDocLists')?>" class="w3-bar-item w3-button">รายการเกณฑ์การประเมินฯ</a>
+		<a href="<?=base_url('index.php/ManageDocument/getDocSearch')?>" class="w3-bar-item w3-button">ค้นหาเกณฑ์การประเมินฯ</a>
+	  </div>
+	<?php } else if(isset($_SESSION['s_user_logged_in']) && $_SESSION['s_user_type'] == 2){ ?>
+	  <a href="#" class="w3-bar-item w3-button">รายการดำเนินงาน</a>
+	  <div class="w3-dropdown-content w3-bar-block w3-blue" style="top:38px;">
+		<a href="<?=base_url('index.php/ManageDocument/getDocSearch')?>" class="w3-bar-item w3-button">ค้นหาเกณฑ์การประเมินฯ</a>
+		<a href="<?=base_url('index.php/ManageDocument/getDocReport')?>" class="w3-bar-item w3-button">รายงานเกณฑ์การประเมินฯ</a>
+	  </div>
 	<?php } ?>
+	</div>
 	<?php if(isset($_SESSION['s_user_logged_in'])){ ?>
 	<div class="w3-dropdown-hover w3-right">
 	  <button class="w3-button"><i class="material-icons">person</i></button>

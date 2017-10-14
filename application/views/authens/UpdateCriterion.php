@@ -59,6 +59,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			?>
 			<table class="w3-table">
 			<tr>
+			<td><b>ปีบัญชี <span style="color:#FF0000;">(ตั้งแต่ปีบัญชีเริ่มต้นไปย้อนหลัง)</span></b></td>
+			<td>
+			<?php
+				$start_year = date('Y', strtotime('-5 year'))+543;
+				$current_year = $cri_year;
+				$end_year = date('Y', strtotime('+5 year'))+543;
+
+				$select = '<select id="i_criyear" name="i_criyear">';
+				$str = "";
+				if($current_year == 9999): $str = "selected"; endif;
+				$select .= '<option value="9999" '.$str.'>ไม่ระบุ</option>';
+				for($i = $start_year; $i <= $end_year; $i++):
+					if($i == $current_year):
+						$str = "selected";
+					else:
+						$str = "";
+					endif;
+				    $select .= '<option value="'.$i.'"'.$str.'>'.$i.'</option>';
+				endfor;
+
+				$select .= '</select>';
+
+				echo $select;
+			?>
+			</td>
+			</tr>
+			<tr>
 			<td><b>เกณฑ์ประเมินผลฯ <span style="color:#FF0000;">*</span></b></td>
 			<td><input class="w3-input w3-border" type="text" name="i_crititle"  value="<?=$cri_title?>" required>
 			<input class="w3-input w3-border" type="hidden" name="i_cri_id" value="<?=$cri_id?>"></td>

@@ -33,15 +33,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<?php } else if(isset($_SESSION['s_user_logged_in']) && $_SESSION['s_user_type'] == 3){ ?>
 	  <a href="#" class="w3-bar-item w3-button">รายการดำเนินงาน</a>
 	  <div class="w3-dropdown-content w3-bar-block w3-blue" style="top:38px;">
-		<a href="<?=base_url('index.php/ManageDocument/getDocument')?>" class="w3-bar-item w3-button">กำหนดเกณฑ์การประเมินฯ รายปีบัญชี</a>
-		<a href="<?=base_url('index.php/ManageDocument/getDocLists')?>" class="w3-bar-item w3-button">รายการเกณฑ์การประเมินฯ</a>
-		<a href="<?=base_url('index.php/ManageDocument/getDocSearch')?>" class="w3-bar-item w3-button">ค้นหาเกณฑ์การประเมินฯ</a>
+		<a href="<?=base_url('index.php/ManageDocument/openDocument')?>" class="w3-bar-item w3-button">กำหนดเกณฑ์การประเมินฯ รายปีบัญชี</a>
+		<a href="<?=base_url('index.php/ManageDocument/getDocLists')?>" class="w3-bar-item w3-button">รายการเอกสารเกณฑ์การประเมินฯ</a>
+		<a href="<?=base_url('index.php/ManageDocument/getDocSearch')?>" class="w3-bar-item w3-button">ค้นหาเอกสารเกณฑ์การประเมินฯ</a>
 	  </div>
 	<?php } else if(isset($_SESSION['s_user_logged_in']) && $_SESSION['s_user_type'] == 2){ ?>
 	  <a href="#" class="w3-bar-item w3-button">รายการดำเนินงาน</a>
 	  <div class="w3-dropdown-content w3-bar-block w3-blue" style="top:38px;">
-		<a href="<?=base_url('index.php/ManageDocument/getDocSearch')?>" class="w3-bar-item w3-button">ค้นหาเกณฑ์การประเมินฯ</a>
-		<a href="<?=base_url('index.php/ManageDocument/getDocReport')?>" class="w3-bar-item w3-button">รายงานเกณฑ์การประเมินฯ</a>
+		<a href="<?=base_url('index.php/ManageDocument/getDocLists')?>" class="w3-bar-item w3-button">รายการเอกสารเกณฑ์การประเมินฯ</a>
+		<a href="<?=base_url('index.php/ManageDocument/getDocSearch')?>" class="w3-bar-item w3-button">ค้นหาเอกสารเกณฑ์การประเมินฯ</a>
 	  </div>
 	<?php } ?>
 	</div>

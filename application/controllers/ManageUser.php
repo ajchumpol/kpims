@@ -232,7 +232,7 @@ class ManageUser extends CI_Controller {
 				$data->info = "Updated user information.";
 				if($_SESSION['s_user_type'] == 1)
 					redirect('ManageUser/getUser');
-				redirect('authens/MainUser');
+				redirect('MainUser');
 			}else{
 				$data->error = 'User information is wrong.';
 				redirect('ManageUser/updateUser/'.$user_id);
@@ -442,7 +442,6 @@ class ManageUser extends CI_Controller {
 		if(isset($_SESSION['s_user_id'])){
 
 			$opassword = $this->input->post('i_opassword');
-			//$onpassword = $this->User_Model->hash_password($opassword);
 			$npassword = $this->input->post('i_password');
 
 			$user    = $this->User_Model->get_user($_SESSION['s_user_id']);
@@ -453,10 +452,6 @@ class ManageUser extends CI_Controller {
 				$result = $this->User_Model->update_password($_SESSION['s_user_id'], $npassword);
 
 				$data->info = "Changed password successfully.";
-				//$this->load->view('templates/header');
-				//$this->load->view('authens/MainUser', $data);
-				//$this->load->view('templates/footer');
-				//echo "<script>alert('คุณเปลี่ยนรหัสผ่านสำเร็จ');</script>";
 				redirect('MainUser');
 
 			} else {

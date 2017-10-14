@@ -20,6 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			  <table class="w3-table-all w3-border">
 			    <tr class="w3-blue">
 			      <th class="w3-center">ที่</th>
+			      <th class="w3-center">ปีบัญชี</th>
 			      <th class="w3-center">เกณฑ์ประเมินผลฯ</th>
 			      <th class="w3-center">น้ำหนัก (%)</th>
 			      <th class="w3-center" colspan="2">แนวทางการกำหนดตัวชี้วัด</th>
@@ -34,8 +35,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				?>
 			    <tr>
 			      <td><?=($i_ord++)?></td>
+			      <td><?=($data_arr[$i_no]['cri_year']==9999)?"ไม่ระบุ":$data_arr[$i_no]['cri_year'];?></td>
 			      <td><?=$data_arr[$i_no]['cri_title']?></td>
-			      <!-- <td><?php if(isset($data_arr[$i_no]['capt_id'])) echo $data_arr[$i_no]['capt_id']; else echo "-"; ?></td> -->
 			      <td class="w3-center"><?=$data_arr[$i_no]['cri_wei_min']."/".$data_arr[$i_no]['cri_wei_max']?></td>
 			      <td><?=$data_arr[$i_no]['cri_kpi_app']?></td>
 			      <td><?=$data_arr[$i_no]['cri_kpi_appexa']?></td>
@@ -48,11 +49,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					if($i_no==0):
 				?>
 				<tr>
-			      <td colspan="7" style="text-align:center;">*** ไม่มีรายการข้อมูล ***</td>
+			      <td colspan="8" style="text-align:center;">*** ไม่มีรายการข้อมูล ***</td>
 			  	</tr>
 				<?php endif; ?>
 			    <tr>
-			      <th colspan="3">
+			      <th colspan="4">
 					  <?php
 					  	if (isset($data_pg)) {
                     		echo $data_pg;
@@ -121,6 +122,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			echo form_open('ManageCriterion/adding', $attributes);
 			?>
 			<table class="w3-table">
+			<tr>
+			<td><b>ปีบัญชี</b></td>
+			<td>
+			<?php
+				$start_year = date('Y', strtotime('-5 year'))+543;
+				$current_year = date('Y')+543;
+				$end_year = date('Y', strtotime('+5 year'))+543;
+
+				$select = '<select id="i_criyear" name="i_criyear">';
+				$select .= '<option value="9999">ไม่ระบุ</option>';
+				for($i = $start_year; $i <= $end_year; $i++):
+					if($i == $current_year):
+						$str = "selected";
+					else:
+						$str = "";
+					endif;
+				    $select .= '<option value="'.$i.'"'.$str.'>'.$i.'</option>';
+				endfor;
+
+				$select .= '</select>';
+
+				echo $select;
+			?> <b><span style="color:#FF0000;">(ตั้งแต่ปีบัญชีเริ่มต้นไปปีย้อนหลัง)</span></b>
+			</td>
+			</tr>
 			<tr>
 			<td><b>เกณฑ์ประเมินผลฯ <span style="color:#FF0000;">*</span></b></td>
 			<td><input class="w3-input w3-border" type="text" name="i_crititle" required></td>

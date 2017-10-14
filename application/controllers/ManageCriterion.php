@@ -43,27 +43,9 @@ class ManageCriterion extends CI_Controller {
 		// load form helper and validation library
 		$this->load->helper('form');
 		$this->load->library('form_validation');
-		
-		// set validation rules
-		//$this->form_validation->set_rules('i_username', 'Username', 'trim|required|alpha_numeric|min_length[4]|is_unique[kpi_user.user_name]', array('is_unique' => 'This username already exists. Please choose another one.'));
-		//$this->form_validation->set_rules('i_email', 'Email', 'trim|required|valid_email|is_unique[kpi_user.user_email]', array('is_unique' => 'This e-mail already exists. Please choose another one.'));
-		//$this->form_validation->set_rules('i_password', 'Password', 'trim|required|min_length[6]');
-		//$this->form_validation->set_rules('i_type', 'User Type', 'trim|required');
 
-		/**
-		*if ($this->form_validation->run() === false) {
-		*	
-		*	$data->error = "Please check user information.";
-		*	redirect('ManageUser/getUser', $data);
-		*
-		*	// validation not ok, send validation errors to the view
-		*	$this->load->view('templates/header');
-		*	$this->load->view('ManageUser/getUser', $data);
-		*	$this->load->view('templates/footer');
-		*
-		*} else {
-		**/	
 			// set variables from the form
+			$cri_year = $this->input->post('i_criyear');
 			$cri_title = $this->input->post('i_crititle');
 			$capt_id = $this->input->post('i_capt_id');
 			$cri_wei_min = $this->input->post('i_criwei_min');
@@ -71,7 +53,7 @@ class ManageCriterion extends CI_Controller {
 			$cri_app = $this->input->post('i_criapp');
 			$cri_app_ex = $this->input->post('i_criapp_ex');
 
-			if ($this->Criterion_Model->create_criterion($cri_title, $capt_id, $cri_wei_min, $cri_wei_max, $cri_app, $cri_app_ex)) {
+			if ($this->Criterion_Model->create_criterion($cri_title, $capt_id, $cri_year, $cri_wei_min, $cri_wei_max, $cri_app, $cri_app_ex)) {
 
 				// criterion creation ok
 				$data->info = "New criterion created.";
@@ -93,9 +75,7 @@ class ManageCriterion extends CI_Controller {
 				$this->load->view('templates/footer');
 				
 			}
-			
-		//} //end if check form validation
-		
+	
 	}
 		
 	/**
@@ -120,7 +100,7 @@ class ManageCriterion extends CI_Controller {
 			$data->cri_id = (int)$data_one->cri_id;
 			$data->cri_title = (string)$data_one->cri_title;
 			$data->capt_id = (int)$data_one->capt_id;
-			//$data->capt_name = (string)$data_one->capt_name;
+			$data->cri_year = (int)$data_one->cri_year;
 			$data->cri_wei_min = (int)$data_one->cri_wei_min;
 			$data->cri_wei_max = (int)$data_one->cri_wei_max;
 			$data->cri_app = (string)$data_one->cri_kpi_app;
@@ -163,6 +143,7 @@ class ManageCriterion extends CI_Controller {
 		$this->load->library('form_validation');
 
 		// $title, $type=0, $weight_min, $weight_max, $approach="", $approach_ex=""
+		$cri_year = $this->input->post('i_criyear');
 		$cri_id = $this->input->post('i_cri_id');
 		$cri_title = $this->input->post('i_crititle');
 		$capt_id = $this->input->post('i_capt_id');
@@ -173,7 +154,7 @@ class ManageCriterion extends CI_Controller {
 
 		if(isset($_SESSION['s_user_id'])){
 			//$id, $title, $type=0, $weight_min, $weight_max, $approach="", $approach_ex=""
-			$result = $this->Criterion_Model->update_criterion($cri_id, $cri_title, $capt_id, $cri_wei_min, $cri_wei_max, $cri_app, $cri_app_ex);
+			$result = $this->Criterion_Model->update_criterion($cri_id, $cri_title, $capt_id, $cri_year, $cri_wei_min, $cri_wei_max, $cri_app, $cri_app_ex);
 			if($result){
 				$data->info = "Updated criterion information successfully.";
 				redirect('ManageCriterion/getCriterion');

@@ -87,24 +87,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<?php } else if(isset($_SESSION['s_user_logged_in']) && $_SESSION['s_user_type'] == 3){ ?>
 			  <h2 class="w3-leftbar w3-border-blue w3-pale-blue" style="padding:15px;">รายการดำเนินงาน</h2>
 			  <div class="w3-row">
-			    <a href="ManageDocument/getDocument" onclick="openCity(event, 'Cate01');">
+			    <a href="ManageDocument/openDocument" onclick="openCity(event, 'Cate01');">
 			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">กำหนดเกณฑ์การประเมินฯ รายปีบัญชี</div>
 			    </a>
 			    <a href="ManageDocument/getDocLists" onclick="openCity(event, 'Cate02');">
-			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">รายการเกณฑ์การประเมินฯ</div>
+			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">รายการเอกสารเกณฑ์การประเมินฯ</div>
 			    </a>
 			    <a href="ManageDocument/getDocSearch" onclick="openCity(event, 'Cate03');">
-			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ค้นหาเกณฑ์การประเมินฯ</div>
+			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ค้นหาเอกสารเกณฑ์การประเมินฯ</div>
 			    </a>
 			  </div>
 			<?php } else if(isset($_SESSION['s_user_logged_in']) && $_SESSION['s_user_type'] == 2){ ?>
 			  <h2 class="w3-leftbar w3-border-blue w3-pale-blue" style="padding:15px;">รายการดำเนินงาน</h2>
 			  <div class="w3-row">
-			    <a href="ManageDocument/getDocSearch" onclick="openCity(event, 'Cate01');">
-			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ค้นหาเกณฑ์การประเมินฯ</div>
+			    <a href="ManageDocument/getDocLists" onclick="openCity(event, 'Cate01');">
+			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">รายการเอกสารเกณฑ์การประเมินฯ</div>
 			    </a>
-			    <a href="ManageDocument/getDocReport" onclick="openCity(event, 'Cate02');">
-			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">รายงานเกณฑ์การประเมินฯ</div>
+			    <a href="ManageDocument/getDocSearch" onclick="openCity(event, 'Cate02');">
+			      <div class="w3-leftbar w3-third tablink w3-bottombar w3-hover-light-grey w3-hover-border-blue w3-padding">ค้นหาเอกสารเกณฑ์การประเมินฯ</div>
 			    </a>
 			  </div>
 			<?php } else { ?>

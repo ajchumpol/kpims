@@ -1,3 +1,5 @@
+var s_url = "http://localhost/kpims/index.php/User/validateUsername";
+
 /**
  * validate user form function.
  */
@@ -37,7 +39,7 @@ function validateUpdateUser(str){
 
 	$(document).ready(function(){
 	    $("#i_email").on("keyup", function(){
-	        $.post("../User/validateUsername",
+	        $.post(s_url,
 	        {
 	          i_email: $("#i_email").val()
 	        },
@@ -88,7 +90,7 @@ function validatePassword() {
 function validateUsername(){
 	$(document).ready(function(){
 	    $("#i_username").on("keyup", function(){
-	        $.post("../User/validateUsername",
+	        $.post(s_url,
 	        {
 	          i_username: $("#i_username").val()
 	        },
@@ -112,7 +114,7 @@ function validateUsername(){
 function validateEmail(){
 	$(document).ready(function(){
 	    $("#i_email").on("keyup", function(){
-	        $.post("../User/validateUsername",
+	        $.post(s_url,
 	        {
 	          i_email: $("#i_email").val()
 	        },
@@ -143,7 +145,6 @@ function uploading(){
 
 	$(document).ready(function (e) {
 		$("#file_upload").on('submit', (function(e) {
-			alert('a');
 			e.preventDefault();
 			$("#message").empty();
 			$('#loading').show();
@@ -165,6 +166,19 @@ function uploading(){
 	});
 
 } // end uploading
+
+function checkCaptcha(){
+	var captcha = document.getElementById("i_captcha").value;
+  	var c_captcha = document.getElementById("i_ctmp").value;
+	    if(captcha != c_captcha){
+	    	document.getElementById("i_captcha").style.color = "#FF0000";
+			document.getElementById("i_captcha").focus();
+			return false;
+	    }else{
+	    	return true;
+	    }
+
+}
 
 function onDev(){
 	alert("อยู่ระหว่างการพัฒนา?");

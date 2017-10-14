@@ -77,25 +77,22 @@ class Cokpi_Model extends CI_Model {
 	 * @param mixed $id
 	 * @return object the co-kpi object
 	 */
-	public function get_cokpi_by_cri_id($id=0) {
-		
+	public function get_cokpi_by_cri_id($id=0,$year=0) {
 		// please count sub-cokpi for customize delete button
 		$this->db->select('*');
 		$this->db->from('kpi_criterion');
 		$this->db->join('kpi_cokpi_crit', 'kpi_cokpi_crit.cri_id = kpi_criterion.cri_id');
 		$this->db->join('kpi_cokpi', 'kpi_cokpi_crit.cokpi_id = kpi_cokpi.cokpi_id');
 		if($id != 0) $this->db->where('kpi_criterion.cri_id', $id);
+		if($year != 0){
+			$this->db->where('kpi_criterion.cri_year', 9999);
+			$this->db->or_where('kpi_criterion.cri_year', $year);
+		}
 		$this->db->order_by("kpi_criterion.cri_id","asc");
-/*
-		$this->db->query('SELECT a.*,b.*,c.* FROM kpi_criterion as a 
-			JOIN kpi_cokpi_crit as b ON a.cri_id = b.cri_id 
-			JOIN kpi_cokpi as c ON b.cokpi_id = c.cokpi_id 
-			WHERE a.cri_id = '.$id);
-*/
+
 		return $this->db->get()->result();
-		
 	}
-	
+
 	/**
 	 * get_cokpi function.
 	 * 
@@ -169,6 +166,17 @@ class Cokpi_Model extends CI_Model {
 	public function get_subkpi_by_cokpi_id($id=0) {
 		$this->db->from('kpi_sub_cokpi');
 		$this->db->join('kpi_cokpi_subcokpi', 'kpi_cokpi_subcokpi.subcokpi_id = kpi_sub_cokpi.subcokpi_id AND kpi_cokpi_subcokpi.cokpi_id = '.$id);
+		$this->db->order_by("kpi_sub_cokpi.subcokpi_id","asc");
+
+		return $this->db->get()->result();
+	}
+
+	/**
+	 * get_subkpi_and_cokpi function
+	 */
+	public function get_subkpi_and_cokpi() {
+		$this->db->from('kpi_sub_cokpi');
+		$this->db->join('kpi_cokpi_subcokpi', 'kpi_cokpi_subcokpi.subcokpi_id = kpi_sub_cokpi.subcokpi_id');
 		$this->db->order_by("kpi_sub_cokpi.subcokpi_id","asc");
 
 		return $this->db->get()->result();
@@ -261,6 +269,18 @@ class Cokpi_Model extends CI_Model {
 
 		return $this->db->get()->result();
 	} //end get_subissue_by_subcokpi_id function
+
+	/**
+	 * get_subissue_and_subcokpi function.
+	 */
+	public function get_subissue_and_subcokpi() {
+		$this->db->from('kpi_sub_issuesdetail');
+		$this->db->join('kpi_sub_cokpi', 'kpi_sub_issuesdetail.subcokpi_id = kpi_sub_cokpi.subcokpi_id');
+		$this->db->join('kpi_grade', 'kpi_grade.gra_id = kpi_sub_issuesdetail.gra_id');
+		$this->db->order_by("kpi_sub_issuesdetail.issdet_id","asc");
+
+		return $this->db->get()->result();
+	} //end get_subissue_and_subcokpi function
 
 	/**
 	 * create_subissue function.

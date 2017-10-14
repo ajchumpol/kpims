@@ -84,14 +84,23 @@ class User_Model extends CI_Model {
 	 * @return int the user id
 	 */
 	public function get_user_id_from_username($username, $email="") {
-		
 		$this->db->select('user_id');
 		$this->db->from('kpi_user');
 		$this->db->where('user_name', $username);
 		$this->db->or_where('user_email', $email);
 		$this->db->where('user_deleted', b'0');
 		return $this->db->get()->row('user_id');
-		
+	}
+
+	/**
+	 * get_user_email function.
+	 */
+	public function get_user_email($email) {
+		$this->db->select('*');
+		$this->db->from('kpi_user');
+		$this->db->where('user_email', $email);
+		$this->db->where('user_deleted', b'0');
+		return $this->db->get()->row();
 	}
 
 	/**

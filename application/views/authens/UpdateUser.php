@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<?php
 			if(isset($error)):
 			?>
-			  <div id="id01" class="w3-modal" style="display:block;">
+			  <div id="id02" class="w3-modal" style="display:block;">
 			    <div class="w3-modal-content w3-card-4">
 			      <header class="w3-container w3-red">
 			        <h3>Information:</h3>
@@ -37,15 +37,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			        <p><?=$error?></p>
 			      </div>
 			      <footer class="w3-container w3-red w3-center">
-			        <button onclick="document.getElementById('id01').style.display='none'">Close</button>
+			        <button onclick="document.getElementById('id02').style.display='none'">Close</button>
 			      </footer>
 			    </div>
 			  </div>
 			<?php endif; ?>
 
-		  <header class="w3-container w3-blue"> 
-			<span onclick="document.getElementById('id01').style.display='none'" 
-			class="w3-button w3-display-topright">&times;</span>
+		  <header class="w3-container w3-blue">
 			<h3>แก้ไขข้อมูลผู้ใช้งาน</h3>
 		  </header>
 		  <div class="w3-container">

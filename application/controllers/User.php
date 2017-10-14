@@ -19,6 +19,7 @@ class User extends CI_Controller {
 		$this->load->helper(array('url'));
 		$this->load->helper('html');
 		$this->load->helper('form');
+		$this->load->helper('captcha');
 		$this->load->model('User_Model');
 		
 	}
@@ -145,6 +146,7 @@ class User extends CI_Controller {
 				
 				// set session user datas
 				$_SESSION['s_user_id']      = (int)$user->user_id;
+				$_SESSION['s_user_flname']     = (string)$user->user_flname;
 				$_SESSION['s_user_name']     = (string)$user->user_name;
 				$_SESSION['s_user_logged_in']    = (bool)true;
 				$_SESSION['s_user_confirmed'] = (bool)$user->user_confirmed;
@@ -213,5 +215,109 @@ class User extends CI_Controller {
 		}
 		
 	}
+
+	/**
+	 * get_captcha function.
+	 */
+	public function get_captcha(){
+		$vals = array(
+		        'word'          => $this->AlphaNumeric(6),
+		        'img_path'      => './images/captcha/',
+		        'img_url'       => base_url('images/captcha/'),
+		        'font_path'     => base_url('images/captcha/fonts/texb.ttf'),
+		        'img_width'     => '150',
+		        'img_height'    => 30,
+		        'expiration'    => 7200,
+		        'word_length'   => 8,
+		        'font_size'     => 16,
+		        'img_id'        => 'Imageid',
+		        'pool'          => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+
+		        // White background and border, black text and red grid
+		        'colors'        => array(
+		                'background' => array(255, 255, 255),
+		                'border' => array(255, 255, 255),
+		                'text' => array(0, 0, 0),
+		                'grid' => array(255, 40, 40)
+		        )
+		);
+
+		$cap = create_captcha($vals);
+		return $cap;
+	} //end get_captcha function.
+
+ 	public static function AlphaNumeric($length)
+    {
+        $chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        $clen   = strlen( $chars )-1;
+        $id  = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $id .= $chars[mt_rand(0,$clen)];
+        }
+        return ($id);
+    }
+
+	/**
+	 * ForgotPassword function.
+	 */
+	public function forgotPassword(){
+
+		$data = new stdClass();
+
+		$data->data_img = $this->get_captcha();
+
+		$this->load->view('templates/header');
+		$this->load->view('ForgotPassword', $data);
+		$this->load->view('templates/footer');
+
+	} //end ForgotPassword function.
+
+	/**
+	 * send_password function.
+	 */
+	public function sendPassword(){
+		$data = new stdClass();
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$submit = $this->input->post('i_submit');
+		if(isset($submit)){
+			$email = $this->input->post('i_email');
+			$data_obj = $this->User_Model->get_user_email($email);
+			//var_dump($data_obj);
+			$user_id = (int)$data_obj->user_id;
+			$username = (string)$data_obj->user_name;
+			//echo "===>$user_id $username"; //die;
+			if(isset($user_id)){
+				$npassword = $this->AlphaNumeric(8);
+				if($this->User_Model->update_password($user_id, $npassword)){
+					$this->load->library('email');
+					$this->email->from('chumpol.mok@cpc.ac.th', 'ระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน (Working Capital Evaluation System)');
+					$this->email->to($email);
+					$this->email->subject('Reset Password ระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน');
+					$this->email->message('รหัสผ่านใหม่ของคุณ '.$username.' คือ '.$npassword.' สำหรับเข้าใช้งานระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน');
+					if($this->email->send()){
+						$data->error = "กรุณาตรวจสอบข้อมูลรหัสผ่านที่อีเมลที่คุณระบุ";
+					}else{
+						$data->error = "ไม่สามารถส่งข้อมูลผู้ใช้งานไปยังอีเมลดังกล่าวได้ กรุณาลองอีกครั้ง!";
+					}
+					//echo $this->email->print_debugger();
+				}else{
+					$data->error = "ไม่สามารถตรวจสอบข้อมูลผู้ใช้งานดังกล่าว กรุณาตรวจสอบข้อมูลที่คุณระบุอีกครั้ง!";
+				}
+			}else{
+				$data->error = "ไม่สามารถตรวจสอบข้อมูลผู้ใช้งานดังกล่าว กรุณาตรวจสอบข้อมูลที่คุณระบุอีกครั้ง!";
+			}
+			$data->data_img = $this->get_captcha();
+
+			$this->load->view('templates/header');
+			$this->load->view('ForgotPassword', $data);
+			$this->load->view('templates/footer');
+		}else{
+			echo "Permission Denied.";
+			die;
+		}
+	} //end send_password function.
 	
 } // end class

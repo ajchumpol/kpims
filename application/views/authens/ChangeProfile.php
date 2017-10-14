@@ -44,8 +44,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<?php endif; ?>
 
 		  <header class="w3-container w3-blue"> 
-			<span onclick="document.getElementById('id01').style.display='none'" 
-			class="w3-button w3-display-topright">&times;</span>
 			<h3>แก้ไขข้อมูลผู้ใช้งาน</h3>
 		  </header>
 		  <div class="w3-container">

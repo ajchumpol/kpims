@@ -31,10 +31,11 @@ class Criterion_Model extends CI_Model {
 	 * @param mixed $approach_ex
 	 * @return bool true on success, false on failure
 	 */
-	public function create_criterion($title, $type=0, $weight_min, $weight_max, $approach="", $approach_ex="") {
+	public function create_criterion($title, $type=0, $year=9999, $weight_min, $weight_max, $approach="", $approach_ex="") {
 		
 		$data = array(
 			'capt_id'   => $type,
+			'cri_year'   => $year,
 			'cri_title'   => $title,
 			'cri_wei_min'   => $weight_min,
 			'cri_wei_max'   => $weight_max,
@@ -72,7 +73,6 @@ class Criterion_Model extends CI_Model {
 	public function get_criterions($key='') {
 
 		$this->db->from('kpi_criterion');
-		//$this->db->join('kpi_capital_type', 'kpi_criterion.capt_id = kpi_capital_type.capt_id');
 		$this->db->where('kpi_criterion.cri_title LIKE "%'.$key.'%" OR kpi_criterion.cri_kpi_app LIKE "%'.$key.'%"');
 		$this->db->order_by("kpi_criterion.cri_id","asc");
 
@@ -88,7 +88,6 @@ class Criterion_Model extends CI_Model {
     	}
 
 		$this->db->from('kpi_criterion');
-		//$this->db->join('kpi_capital_type', 'kpi_criterion.capt_id = kpi_capital_type.capt_id');
 		$this->db->where('kpi_criterion.cri_title LIKE "%'.$key.'%" OR kpi_criterion.cri_kpi_app LIKE "%'.$key.'%"');
 		$this->db->order_by("kpi_criterion.cri_id","asc");
 
@@ -114,10 +113,11 @@ class Criterion_Model extends CI_Model {
 	/**
 	 * update_criterion function
 	 */
-	public function update_criterion($id, $title, $type=0, $weight_min, $weight_max, $approach="", $approach_ex="") {
+	public function update_criterion($id, $title, $type=0, $year=9999, $weight_min, $weight_max, $approach="", $approach_ex="") {
 		
 		$data = array(
 			'capt_id'   => $type,
+			'cri_year'   => $year,
 			'cri_title'   => $title,
 			'cri_wei_min'   => $weight_min,
 			'cri_wei_max'   => $weight_max,

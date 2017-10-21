@@ -9,3 +9,6 @@ Config--
 - kpims/application/config/email.php
 - kpims/scripts/kpi_script.js
 
+Modules--
+- forgot password
+- document label validate

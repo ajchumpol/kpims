@@ -13,12 +13,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<label>อีเมล</label>
 		<input class="w3-input" name="i_email" id="i_email" type="email" placeholder="E-mail" required>
 
-		<label>ระบุข้อความที่ปรากฏ</label>
+		<!--label>ระบุข้อความที่ปรากฏ</label>
 		<?=$data_img['image']?>
 		<input class="w3-input" name="i_captcha" id="i_captcha" type="text" placeholder="Captcha" required>
-		<input type="hidden" id="i_ctmp" value="<?=$data_img['word']?>">
+		<input type="hidden" id="i_ctmp" value="<?=$data_img['word']?>"-->
 
-		<button class="w3-button w3-blue w3-block w3-margin-top" name="i_submit" type="submit" onClick="return checkCaptcha();">ตกลง</button>
+		<button class="w3-button w3-blue w3-block w3-margin-top" name="i_submit" type="submit">ตกลง</button>
 		<button class="w3-button w3-red w3-margin-top" type="reset">ล้างข้อมูล</button>
 		<a class="w3-button w3-grey w3-margin-top" href="<?=base_url('index.php/Login')?>">ย้อนกลับ</a>
 		<br><br><br><br>

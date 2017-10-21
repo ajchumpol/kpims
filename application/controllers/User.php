@@ -265,7 +265,7 @@ class User extends CI_Controller {
 
 		$data = new stdClass();
 
-		$data->data_img = $this->get_captcha();
+		//$data->data_img = $this->get_captcha();
 
 		$this->load->view('templates/header');
 		$this->load->view('ForgotPassword', $data);
@@ -286,28 +286,32 @@ class User extends CI_Controller {
 			$email = $this->input->post('i_email');
 			$data_obj = $this->User_Model->get_user_email($email);
 			//var_dump($data_obj);
-			$user_id = (int)$data_obj->user_id;
-			$username = (string)$data_obj->user_name;
 			//echo "===>$user_id $username"; //die;
-			if(isset($user_id)){
+			if(isset($data_obj)){
+				$user_id = (int)$data_obj->user_id;
+				$username = (string)$data_obj->user_name;
 				$npassword = $this->AlphaNumeric(8);
-				if($this->User_Model->update_password($user_id, $npassword)){
-					$this->load->library('email');
-					$this->email->from('chumpol.mok@cpc.ac.th', 'ระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน (Working Capital Evaluation System)');
-					$this->email->to($email);
-					$this->email->subject('Reset Password ระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน');
-					$this->email->message('รหัสผ่านใหม่ของคุณ '.$username.' คือ '.$npassword.' สำหรับเข้าใช้งานระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน');
-					if($this->email->send()){
-						$data->error = "กรุณาตรวจสอบข้อมูลรหัสผ่านที่อีเมลที่คุณระบุ";
+
+				$this->load->library('email');
+				$email_config = $this->config->item('email');
+				$email_name = $email_config['smtp_user'];
+
+				$this->email->from($email_name, 'ระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน (Working Capital Evaluation System)');
+				$this->email->to($email);
+				$this->email->subject('Reset Password ระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน');
+				$this->email->message('รหัสผ่านใหม่ของคุณ '.$username.' คือ '.$npassword.' สำหรับเข้าใช้งานระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน');
+				if($this->email->send()){
+					if($this->User_Model->update_password($user_id, $npassword)){
+						$data->info = "กรุณาตรวจสอบข้อมูลรหัสผ่านที่อีเมลที่คุณระบุ";
 					}else{
-						$data->error = "ไม่สามารถส่งข้อมูลผู้ใช้งานไปยังอีเมลดังกล่าวได้ กรุณาลองอีกครั้ง!";
+						$data->error = "ไม่สามารถตรวจสอบข้อมูลผู้ใช้งานดังกล่าว กรุณาตรวจสอบข้อมูลที่คุณระบุอีกครั้ง!";
 					}
-					//echo $this->email->print_debugger();
 				}else{
-					$data->error = "ไม่สามารถตรวจสอบข้อมูลผู้ใช้งานดังกล่าว กรุณาตรวจสอบข้อมูลที่คุณระบุอีกครั้ง!";
+					$data->error = "ไม่สามารถส่งข้อมูลผู้ใช้งานไปยังอีเมลดังกล่าวได้ กรุณาลองอีกครั้ง!";
 				}
+				//echo $this->email->print_debugger();
 			}else{
-				$data->error = "ไม่สามารถตรวจสอบข้อมูลผู้ใช้งานดังกล่าว กรุณาตรวจสอบข้อมูลที่คุณระบุอีกครั้ง!";
+				$data->error = "ไม่พบข้อมูลผู้ใช้งานดังกล่าว กรุณาตรวจสอบข้อมูลที่คุณระบุอีกครั้ง!";
 			}
 			$data->data_img = $this->get_captcha();
 

@@ -28,13 +28,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		  <div id="id01" class="w3-modal" style="display:block;">
 		    <div class="w3-modal-content w3-card-4">
 		      <header class="w3-container w3-red">
-		        <h2>Information:</h2>
+		        <h2>ข้อผิดพลาดระบบ:</h2>
 		      </header>
 		      <div class="w3-container">
 		        <p><?=$error?></p>
 		      </div>
 		      <footer class="w3-container w3-red w3-center">
 		        <button onclick="document.getElementById('id01').style.display='none'">Close</button>
+		      </footer>
+		    </div>
+		  </div>
+		<?php endif;
+		if(isset($info)):
+		?>
+		  <div id="id02" class="w3-modal" style="display:block;">
+		    <div class="w3-modal-content w3-card-4">
+		      <header class="w3-container w3-green">
+		        <h2>Information:</h2>
+		      </header>
+		      <div class="w3-container">
+		        <p><?=$info?></p>
+		      </div>
+		      <footer class="w3-container w3-green w3-center">
+		        <button onclick="location.href='<?=base_url('index.php/Login')?>'">กลับหน้าหลัก</button>
 		      </footer>
 		    </div>
 		  </div>

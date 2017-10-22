@@ -281,26 +281,31 @@ class User extends CI_Controller {
 
 		$this->load->helper('form');
 		$this->load->library('form_validation');
+		$this->load->library('email');
+
+		$email_name = "mokarat@gmail.com";
+
 		$submit = $this->input->post('i_submit');
 		if(isset($submit)){
 			$email = $this->input->post('i_email');
 			$data_obj = $this->User_Model->get_user_email($email);
-			//var_dump($data_obj);
-			//echo "===>$user_id $username"; //die;
 			if(isset($data_obj)){
 				$user_id = (int)$data_obj->user_id;
 				$username = (string)$data_obj->user_name;
 				$npassword = $this->AlphaNumeric(8);
 
-				$this->load->library('email');
-				$email_config = $this->config->item('email');
-				$email_name = $email_config['smtp_user'];
+				//$this->email->from($email_name, 'ระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน (Working Capital Evaluation System)');
+				//$this->email->to($email);
+				//$this->email->subject('Reset Password ระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน');
+				//$this->email->message('รหัสผ่านใหม่ของคุณ '.$username.' คือ '.$npassword.' สำหรับเข้าใช้งานระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน');
 
-				$this->email->from($email_name, 'ระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน (Working Capital Evaluation System)');
-				$this->email->to($email);
-				$this->email->subject('Reset Password ระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน');
-				$this->email->message('รหัสผ่านใหม่ของคุณ '.$username.' คือ '.$npassword.' สำหรับเข้าใช้งานระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน');
-				if($this->email->send()){
+				$to = $email;
+				$subject = "Reset Password ระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน";
+				$txt = "รหัสผ่านใหม่ของคุณ ".$username." คือ ".$npassword." สำหรับเข้าใช้งานระบบประเมินผลการดำเนินงานกองทุนหมุนเวียน\r\n";
+				$headers = "From: mokarat@gmail.com" . "\r\n";
+
+				//if($this->email->send()){
+				if(mail($to,$subject,$txt,$headers)){
 					if($this->User_Model->update_password($user_id, $npassword)){
 						$data->info = "กรุณาตรวจสอบข้อมูลรหัสผ่านที่อีเมลที่คุณระบุ";
 					}else{
@@ -313,7 +318,7 @@ class User extends CI_Controller {
 			}else{
 				$data->error = "ไม่พบข้อมูลผู้ใช้งานดังกล่าว กรุณาตรวจสอบข้อมูลที่คุณระบุอีกครั้ง!";
 			}
-			$data->data_img = $this->get_captcha();
+			//$data->data_img = $this->get_captcha();
 
 			$this->load->view('templates/header');
 			$this->load->view('ForgotPassword', $data);

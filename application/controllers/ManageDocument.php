@@ -105,19 +105,20 @@ class ManageDocument extends CI_Controller {
 		$gra_score = $this->input->post('i_gra_score');			// association array - $data_arr2
 		$gra_id = $this->input->post('i_gra_id');				// association array - $data_arr3
 
-		// call create_document
-		if ($this->Document_Model->create_document($label, $title, $year, "", $status, $create_by, "", $cokpi_wei, $cokpi_subkpi, $gra_score, $gra_id)) {
-
-			// criterion creation ok
-			$data->info = "New (".$status.") document created.";
-			redirect('ManageDocument/getDocLists', $data);
-				
+		// call doc_label validate
+		if($this->Document_Model->validate_document($label) == 0) {
+			// call create_document
+			if ($this->Document_Model->create_document($label, $title, $year, "", $status, $create_by, "", $cokpi_wei, $cokpi_subkpi, $gra_score, $gra_id)) {
+				$data->info = "New (".$status.") document created.";
+				redirect('ManageDocument/getDocLists', $data);
+			} else {
+				$data->error = 'There was a problem creating your new document. Please try again.';
+				redirect('ManageDocument/openDocument', $data);
+			} //end if check create_document model
 		} else {
-
-			$data->error = 'There was a problem creating your new document. Please try again.';
-			redirect('ManageDocument/openDocument', $data);
-				
-		} //end if check create_document model
+			$data->error = 'This document label ('.$label.') has already. Please try again.';
+			redirect('ManageDocument/openDocument/'.$year, $data);
+		} //end if document validate
 		
 	} //end check adding function
 
@@ -309,8 +310,14 @@ class ManageDocument extends CI_Controller {
 			$data->doc_create_name = (string)$data_doc->user_flname;
 			$data->doc_create = (string)$data_doc->doc_create;
 			$user_obj = $this->User_Model->get_user((int)$data_doc->doc_edit_by);
-			$data->doc_edit_name = (string)$user_obj->user_flname;
-			$data->doc_edit = (string)$data_doc->doc_edit;
+			if($user_obj)
+				$data->doc_edit_name = (string)$user_obj->user_flname;
+			else
+				$data->doc_edit_name = "ไม่ระบุ";
+			if((string)$data_doc->doc_edit != "0000-00-00 00:00:00")
+				$data->doc_edit = (string)$data_doc->doc_edit;
+			else
+				$data->doc_edit = "ไม่ระบุ";
 
 			$data_cri = $this->Document_Model->get_codoc_crit_cokpi_by_id($id);
 			$data->data_cri_obj = $data_cri;

@@ -257,6 +257,16 @@ class Document_Model extends CI_Model {
 		return false;
 	} //end delete_document function.
 
+	/**
+	 * validate_document function.
+	 */
+	public function validate_document($id) {
+		$this->db->from('kpi_document');
+		$this->db->where('kpi_document.doc_label', $id);
+
+		return $this->db->get()->num_rows();
+	}
+
 	//check status value
 	public function check_status($data=""){
 		return ($data=='D')? "ฉบับร่าง": "ฉบับสมบูรณ์";

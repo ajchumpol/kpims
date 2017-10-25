@@ -65,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<td><?=$data_subkpi_arr[$j_no]['subcokpi_title']?></td>
 				<td><?=$data_subkpi_arr[$j_no]['subcokpi_def']?></td>
 				<td><?=$data_subkpi_arr[$j_no]['subcokpi_comment']?></td>
-				<td class="w3-center"><a href="#" onClick="onDev();"><i class="material-icons" style="vertical-align:middle;">description</i></a></td>
+				<td class="w3-center"><a href="<?=base_url('index.php/ManageCokpi/addSubissue/').$cri_id.'/'.$cokpi_id.'/'.$data_subkpi_arr[$j_no]['subcokpi_id']?>"><i class="material-icons" style="vertical-align:middle;">description</i></a></td>
 				<td class="w3-center"><a href="<?=base_url('index.php/ManageCokpi/updateSubkpi/').$data_subkpi_arr[$j_no]['subcokpi_id'].'/'.$cokpi_id.'/'.$cri_id?>#ADD"><i class="material-icons" style="vertical-align:middle;">edit</i></a></td>
 				<td class="w3-center"><a href="<?=base_url('index.php/ManageCokpi/deletingSubkpi/').$data_subkpi_arr[$j_no]['subcokpi_id'].'/'.$cokpi_id.'/'.$cri_id?>" onclick="return confirmation('กรุณายืนยันเพื่อลบข้อมูลตัวชี้วัดย่อย ?')"><i class="material-icons" style="vertical-align:middle;">delete</i></a></td>
 			</tr>

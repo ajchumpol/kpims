@@ -1,4 +1,4 @@
-var s_url = "http://localhost/kpims/index.php/User/validateUsername";
+﻿var s_url = "http://localhost:81/kpims/index.php/User/validateUsername";
 
 /**
  * validate user form function.
@@ -201,3 +201,20 @@ function topFunction() {
     document.documentElement.scrollTop = 0;
 }
 
+function validateFiles(){
+	$(function(){
+		$('#upload_Files').change(function(){
+			for(var i=0; i<this.files.length; i++){
+				var f=this.files[i];
+				if(f.size > 2097152){ //KB unit
+					alert("Sorry, file size is wrong (not over 2MB), please ty again!");
+					$('#upload_Files').val("");
+				}
+				if(f.name.lastIndexOf('.pdf') === -1 && f.name.lastIndexOf('.doc') === -1 && f.name.lastIndexOf('.docx') === -1){
+					alert("Sorry, file extension is wrong (pdf, doc, or docx only), please ty again!");
+					$('#upload_Files').val("");
+				}
+			}
+		});
+	});
+}

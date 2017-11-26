@@ -184,7 +184,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<tr>
 				<td><b>เอกสารแนบ</b></td>
 				<td>
-					<input type="file" class="w3-input w3-button" name="upload_Files[]" id="upload_Files" accept=".pdf|.doc|.docx" multiple />
+					<input type="file" class="w3-input w3-button" name="upload_Files[]" id="upload_Files" accept="application/msword,application/pdf" multiple onChange="return validateFiles();" />
 				</td>
 			</tr>
 			<tr>

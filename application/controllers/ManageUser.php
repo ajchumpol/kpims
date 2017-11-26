@@ -260,12 +260,13 @@ class ManageUser extends CI_Controller {
 		$data = new stdClass();
 
 		$key = $this->input->post('i_key');
+		$field_sort = $this->input->post('i_sort');
 
 		if (isset($_SESSION['s_user_logged_in']) && $_SESSION['s_user_logged_in'] === true) {
 	        //how many blogs will be shown in a page
 	        $limit = 10;
 
-	        $result = $this->User_Model->get_users_pg($limit, $offset, $key);
+	        $result = $this->User_Model->get_users_pg($limit, $offset, $key, $field_sort);
 
 	        // load pagination library
 	        $this->load->library('pagination');
@@ -299,12 +300,17 @@ class ManageUser extends CI_Controller {
 	        $data->user_pg = $this->pagination->create_links();
 
 			// select all user data
-			$user = $this->User_Model->get_users($key);
+			$user = $this->User_Model->get_users($key, $field_sort);
 			$data->user_obj = $user;
 
 			// select all user type data
 			$user_type = $this->UserType_Model->get_user_type();
 			$data->user_type_obj = $user_type;
+
+			// select sorting list user data
+			$sort_user = $this->User_Model->sorting_list($key);
+			$data->sorting_obj = $sort_user;
+			$data->current_sort = $field_sort;
 
 			$this->load->view('templates/header');
 			$this->load->view('authens/ManageUser', $data);

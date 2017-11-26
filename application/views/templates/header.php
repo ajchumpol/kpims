@@ -30,6 +30,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<a href="<?=base_url('index.php/ManageCokpi/getSubissue')?>" class="w3-bar-item w3-button">ข้อมูลประเด็นย่อยที่ใช้พิจารณา</a>
 		<a href="<?=base_url('index.php/ManageGrade/getGrade')?>" class="w3-bar-item w3-button">ข้อมูลระดับคะแนน (ตัวชี้วัดย่อย)</a>
 	  </div>
+	<?php } else if(isset($_SESSION['s_user_logged_in']) && $_SESSION['s_user_type'] == 5){ ?>
+	  <a href="#" class="w3-bar-item w3-button">ข้อมูลหลัก</a>
+	  <div class="w3-dropdown-content w3-bar-block w3-blue" style="top:38px;">
+		<a href="<?=base_url('index.php/ManageUser/getUser')?>" class="w3-bar-item w3-button">ข้อมูลผู้ใช้งาน</a>
+		<a href="<?=base_url('index.php/ManageCriterion/getCriterion')?>" class="w3-bar-item w3-button">ข้อมูลเกณฑ์การประเมิน</a>
+		<a href="<?=base_url('index.php/ManageCapitalType/getCapitalType')?>" class="w3-bar-item w3-button">ข้อมูลกลุ่มประเภทเงินทุนหมุนเวียน</a>
+		<a href="<?=base_url('index.php/ManageCokpi/getCokpi')?>" class="w3-bar-item w3-button">ข้อมูลตัวชี้วัด</a>
+		<a href="<?=base_url('index.php/ManageCokpi/getSubkpi')?>" class="w3-bar-item w3-button">ข้อมูลตัวชี้วัดย่อย</a>
+		<a href="<?=base_url('index.php/ManageCokpi/getSubissue')?>" class="w3-bar-item w3-button">ข้อมูลประเด็นย่อยที่ใช้พิจารณา</a>
+		<a href="<?=base_url('index.php/ManageGrade/getGrade')?>" class="w3-bar-item w3-button">ข้อมูลระดับคะแนน (ตัวชี้วัดย่อย)</a>
+		<a href="<?=base_url('index.php/ManageDocument/openDocument')?>" class="w3-bar-item w3-button">กำหนดเกณฑ์การประเมินฯ รายปีบัญชี</a>
+		<a href="<?=base_url('index.php/ManageDocument/getDocLists')?>" class="w3-bar-item w3-button">รายการเอกสารเกณฑ์การประเมินฯ</a>
+		<a href="<?=base_url('index.php/ManageDocument/getDocSearch')?>" class="w3-bar-item w3-button">ค้นหาเอกสารเกณฑ์การประเมินฯ</a>
+	  </div>
 	<?php } else if(isset($_SESSION['s_user_logged_in']) && $_SESSION['s_user_type'] == 3){ ?>
 	  <a href="#" class="w3-bar-item w3-button">รายการดำเนินงาน</a>
 	  <div class="w3-dropdown-content w3-bar-block w3-blue" style="top:38px;">
@@ -42,6 +56,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	  <div class="w3-dropdown-content w3-bar-block w3-blue" style="top:38px;">
 		<a href="<?=base_url('index.php/ManageDocument/getDocLists')?>" class="w3-bar-item w3-button">รายการเอกสารเกณฑ์การประเมินฯ</a>
 		<a href="<?=base_url('index.php/ManageDocument/getDocSearch')?>" class="w3-bar-item w3-button">ค้นหาเอกสารเกณฑ์การประเมินฯ</a>
+	  </div>
+	<?php } else if(isset($_SESSION['s_user_logged_in']) && $_SESSION['s_user_type'] == 4){ ?>
+	  <a href="#" class="w3-bar-item w3-button">รายการดำเนินงาน</a>
+	  <div class="w3-dropdown-content w3-bar-block w3-blue" style="top:38px;">
+		<a href="<?=base_url('index.php/ManageDocument/getDocLists')?>" class="w3-bar-item w3-button">รายการเอกสารเกณฑ์การประเมินฯ</a>
 	  </div>
 	<?php } ?>
 	</div>

@@ -285,8 +285,7 @@ class Cokpi_Model extends CI_Model {
 	/**
 	 * create_subissue function.
 	 */
-	public function create_subissue($cri_id, $cokpi_id, $subkpi_id, $issdet_title, $issdet_wei, $gra_id, $issdet_score="") {
-		//$cri_id, $cokpi_id, $subkpi_id, $issdet_title, $issdet_wei, $gra_id, $issdet_score=""
+	public function create_subissue($cri_id, $cokpi_id, $subkpi_id, $issdet_title, $issdet_wei, $gra_id, $issdet_score="", $files=array()) {
 		$data = array(
 			'subcokpi_id'   => $subkpi_id,
 			'issdet_title'   => $issdet_title,
@@ -294,8 +293,61 @@ class Cokpi_Model extends CI_Model {
 			'gra_id'   => $gra_id
 		);
 
-		return $this->db->insert('kpi_sub_issuesdetail', $data);
+		if($this->db->insert('kpi_sub_issuesdetail', $data)){
+			$issdet_id = $this->db->insert_id();
+			if(!empty($files)){
+				foreach ($files as $key_a => $value_a) {
+            		$insert = $this->adding_attach($issdet_id, $subkpi_id, $value_a['att_label'], $value_a['att_path']);
+                	$statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+                	$this->session->set_flashdata('statusMsg',$statusMsg);
+            	} //endif foreach
+            } //endif uploadData
+            return true;
+        }else return false;
 	} //end create_subissue function.
+
+	/**
+	 * adding_attach function.
+	 */
+	public function adding_attach($issdet, $subcokpi, $label, $path) {
+		$data = array(
+		 'issdet_id' => $issdet,
+		 'subcokpi_id' => $subcokpi,
+		 'att_label' => $label,
+		 'att_path' => $path,
+		 'att_create' => date('Y-m-j H:i:s')
+		);
+
+        return $this->db->insert('kpi_attach_issdet', $data);;
+	}
+	
+	/**
+	 * get_attach function.
+	 **/
+	public function get_attach($subcokpi) {
+		$this->db->from('kpi_attach_issdet');
+		$this->db->where('subcokpi_id', $subcokpi);
+		//$this->db->where('issdet_id', $issdet_id);
+		return $this->db->get()->result();
+	}
+
+	/**
+	 * get_all_attachs function.
+	 **/
+	public function get_all_attachs() {
+		$this->db->from('kpi_attach_issdet');
+		return $this->db->get()->result();
+	}
+
+	/**
+	 * delete_attach function.
+	 **/
+	/**public function delete_attach($a_id) {
+		$this->db->where('att_id', $a_id);
+		$this->db->delete('kpi_attach_issdet');
+
+		return true;
+	}**/
 
 	/**
 	 * delete_subissue function
@@ -303,7 +355,13 @@ class Cokpi_Model extends CI_Model {
 	public function delete_subissue($id, $subkpi_id) {
 		$this->db->where('issdet_id', $id);
 		$this->db->where('subcokpi_id', $subkpi_id);
-		return $this->db->delete('kpi_sub_issuesdetail');
+		if($this->db->delete('kpi_sub_issuesdetail')){
+			$this->db->where('issdet_id', $id);
+			$this->db->where('subcokpi_id', $subkpi_id);
+			if($this->db->delete('kpi_attach_issdet'))
+				return true;
+			return false;
+		}else return false;
 	} //end delete_subissue function.
 
 

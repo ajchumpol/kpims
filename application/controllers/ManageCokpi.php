@@ -558,6 +558,9 @@ class ManageCokpi extends CI_Controller {
 			$data_subissue = $this->Cokpi_Model->get_subissue_by_subcokpi_id($id3);
 			$data->data_subissue_obj = $data_subissue;
 
+			$data_att = $this->Cokpi_Model->get_attach($id3);
+			$data->data_att_obj = $data_att;
+
 			$this->load->view('templates/header');
 			$this->load->view('authens/AddSubissue', $data);
 			$this->load->view('templates/footer');
@@ -591,7 +594,34 @@ class ManageCokpi extends CI_Controller {
 		$issdet_wei = $this->input->post('i_issdet_wei');
 		$gra_id = $this->input->post('i_gra_id');
 
-		if ($this->Cokpi_Model->create_subissue($cri_id, $cokpi_id, $subkpi_id, $issdet_title, $issdet_wei, $gra_id, $issdet_score="")) {
+		$uploadData = array();
+		if(!empty($_FILES['upload_Files']['name'])){
+            $filesCount = count($_FILES['upload_Files']['name']);
+            for($i = 0; $i < $filesCount; $i++){
+            	$new_name = strtotime(date('Y-m-j H:i:s'));
+                $_FILES['upload_File']['name'] = $_FILES['upload_Files']['name'][$i];
+                $_FILES['upload_File']['type'] = $_FILES['upload_Files']['type'][$i];
+                $_FILES['upload_File']['tmp_name'] = $_FILES['upload_Files']['tmp_name'][$i];
+                $_FILES['upload_File']['error'] = $_FILES['upload_Files']['error'][$i];
+                $_FILES['upload_File']['size'] = $_FILES['upload_Files']['size'][$i];
+                $uploadPath = 'attachs/files/';
+                $config['upload_path'] = $uploadPath;
+                $config['allowed_types'] = 'pdf|doc|docx';
+                $config['file_name'] = $new_name;
+
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                if($this->upload->do_upload('upload_File')){
+                    $fileData = $this->upload->data();
+                    $uploadData[$i]['att_label'] = $fileData['file_name'];
+                    $uploadData[$i]['att_path'] = $uploadPath.$fileData['file_name'];
+                }
+            } //endfor loop
+
+        } // endif check uploads
+
+		if ($this->Cokpi_Model->create_subissue($cri_id, $cokpi_id, $subkpi_id, $issdet_title, $issdet_wei, $gra_id, $issdet_score="", $uploadData)) {
 			$data->info = "New sub-issue created.";
 			redirect('ManageCokpi/addSubissue/'.$cri_id.'/'.$cokpi_id.'/'.$subkpi_id, $data);
 		} else {

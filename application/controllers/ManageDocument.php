@@ -59,6 +59,10 @@ class ManageDocument extends CI_Controller {
 			$data_subcokpi = $this->Cokpi_Model->get_subissue_and_subcokpi();
 			$data->data_subcokpi_obj = $data_subcokpi;
 
+			//get all data from kpi_attach_issdet
+			$data_att = $this->Cokpi_Model->get_all_attachs();
+			$data->data_att_obj = $data_att;
+
 			//get all data from grade
 			$data_grade = $this->Grade_Model->get_grades();
 			$data->data_grade_obj = $data_grade;
@@ -230,6 +234,10 @@ class ManageDocument extends CI_Controller {
 			$data_subcokpi = $this->Document_Model->get_codoc_subcokpi_issdet_by_id($id);
 			$data->data_subcokpi_obj = $data_subcokpi;
 
+			//get all data from kpi_attach_issdet
+			$data_att = $this->Cokpi_Model->get_all_attachs();
+			$data->data_att_obj = $data_att;
+
 			//get all data from grade
 			$data_grade = $this->Grade_Model->get_grades();
 			$data->data_grade_obj = $data_grade;
@@ -328,6 +336,9 @@ class ManageDocument extends CI_Controller {
 			$data_subcokpi = $this->Document_Model->get_codoc_subcokpi_issdet_by_id($id);
 			$data->data_subcokpi_obj = $data_subcokpi;
 
+			$data_att = $this->Cokpi_Model->get_all_attachs();
+			$data->data_att_obj = $data_att;
+
 			//get all data from grade
 			$data_grade = $this->Grade_Model->get_grades();
 			$data->data_grade_obj = $data_grade;
@@ -382,6 +393,9 @@ class ManageDocument extends CI_Controller {
 
 			$data_subcokpi = $this->Document_Model->get_codoc_subcokpi_issdet_by_id($id);
 			$data->data_subcokpi_obj = $data_subcokpi;
+
+			$data_att = $this->Cokpi_Model->get_all_attachs();
+			$data->data_att_obj = $data_att;
 
 			//get all data from grade
 			$data_grade = $this->Grade_Model->get_grades();

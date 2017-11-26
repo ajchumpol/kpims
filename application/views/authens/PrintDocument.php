@@ -79,7 +79,7 @@ function check_score($a=0, $b=0){
 			    <tr class="w3-blue">
 			      <th class="w3-center" style="width:25%;">เกณฑ์ประเมินผลฯ</th>
 			      <th class="w3-center">น้ำหนัก (%)</th>
-			      <th class="w3-center" colspan="2">แนวทางการกำหนดตัวชี้วัด</th>
+			      <th class="w3-center" colspan="5">แนวทางการกำหนดตัวชี้วัด</th>
 			    </tr>
 		  <?php
 		  	$ind = 0;
@@ -98,13 +98,13 @@ function check_score($a=0, $b=0){
 				<td><?=$data_cri_arr[$j_no]['cri_title']?><input type="hidden" name="i_cri_id[]" value="<?=$data_cri_arr[$j_no]['cri_id']?>"></td>
 				<td class="w3-center"><?=$data_cri_arr[$j_no]['cri_wei_min']."-/+".$data_cri_arr[$j_no]['cri_wei_max']?></td>
 				<td><?=$data_cri_arr[$j_no]['cri_kpi_app']?></td>
-				<td><?=$data_cri_arr[$j_no]['cri_kpi_appexa']?></td>
+				<td colspan="4"><?=$data_cri_arr[$j_no]['cri_kpi_appexa']?></td>
 			</tr>
 			<?php else: $tmp_i=0; endif; ?>
 			<tr>
 				<td><?=$data_cri_arr[$j_no]['cokpi_title']?><input type="hidden" name="i_cokpi_id[]" value="<?=$data_cri_arr[$j_no]['cokpi_id']?>"></td>
 				<td class="w3-center"><?=$data_cri_arr[$j_no]['cokpi_score']?></td>
-				<td colspan="2"><?=$data_cri_arr[$j_no]['cokpi_app']?></td>
+				<td colspan="5"><?=$data_cri_arr[$j_no]['cokpi_app']?></td>
 			</tr>
 		  <?php
 		  		for ($i_no = 0; $i_no < count($data_cokpi_arr); $i_no++):
@@ -112,7 +112,7 @@ function check_score($a=0, $b=0){
 		  ?>
 			<tr class="w3-light-grey">
 				<td><?=$data_cokpi_arr[$i_no]['subcokpi_title']?><input type="hidden" name="i_subkpi_id[]" value="<?=$data_cokpi_arr[$i_no]['subcokpi_id']?>"></td>
-				<td colspan="3"><?=$data_cokpi_arr[$i_no]['subcokpi_def']?><input type="hidden" name="i_cokpi_subkpi[<?=$data_cokpi_arr[$i_no]['cokpi_id']?>][<?=$data_cokpi_arr[$i_no]['subcokpi_id']?>]" value="<?=$data_cokpi_arr[$i_no]['subcokpi_id']?>"></td>
+				<td colspan="6"><?=$data_cokpi_arr[$i_no]['subcokpi_def']?><input type="hidden" name="i_cokpi_subkpi[<?=$data_cokpi_arr[$i_no]['cokpi_id']?>][<?=$data_cokpi_arr[$i_no]['subcokpi_id']?>]" value="<?=$data_cokpi_arr[$i_no]['subcokpi_id']?>"></td>
 			</tr>
 		  <?php
 		  				for ($k_no = 0; $k_no < count($data_subcokpi_arr); $k_no++):
@@ -121,7 +121,7 @@ function check_score($a=0, $b=0){
 			<tr>
 				<td><?=$data_subcokpi_arr[$k_no]['issdet_title']?><input type="hidden" name="i_issdet_id[]" value="<?=$data_subcokpi_arr[$k_no]['issdet_id']?>"></td>
 				<td class="w3-center"><?=$data_subcokpi_arr[$k_no]['issdet_wei']?></td>
-				<td colspan="2">
+				<td colspan="4">
 		  <?php
 		  				$chk1 = ""; $chk2 = ""; $chk3 = ""; $chk4 = ""; $chk5 = "";
 		  				for ($l_no = 0; $l_no < count($data_grade_arr); $l_no++):
@@ -154,6 +154,27 @@ function check_score($a=0, $b=0){
 							endif;
 						endfor;
 			?>
+				</td>
+				<td>
+					<ul>
+					<?php
+					$data_att_arr = json_decode(json_encode($data_att_obj), True);
+					$flag = 0;
+					for ($l_no = 0; $l_no < count($data_att_arr); $l_no++):
+						if (($data_att_arr[$l_no]['issdet_id'] == $data_subcokpi_arr[$k_no]['issdet_id']) && 
+							($data_att_arr[$l_no]['subcokpi_id'] == $data_cokpi_arr[$i_no]['subcokpi_id'])):
+							$flag++;
+							echo "<li><a class='w3-btn' href='".base_url($data_att_arr[$l_no]['att_path'])."' target='_blank'>".$data_att_arr[$l_no]['att_label']."</a></li>";
+						endif;
+					endfor;
+
+					if($flag == 0):
+					?>
+						<li>
+							<label style="color:#ff0000;">* ไม่มีเอกสารแนบ</label>
+						</li>
+					</ul>
+					<?php endif; ?>
 				</td>
 			</tr>
 		  <?php

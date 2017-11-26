@@ -8,13 +8,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			  <h3 class="w3-leftbar w3-border-blue w3-pale-blue" style="padding:15px;"><a href="<?=base_url('index.php/MainUser')?>"><i class="material-icons" style="vertical-align:middle;">arrow_back</i></a> ข้อมูลผู้ใช้งาน</h3>
 			  <table class="w3-table">
 			  	<tr>
+			  		<?=form_open("ManageUser/getUser", "autocomplete='off'")?>
 			  		<td colspan="4" style="padding:0px;margin:0px;">
-					<?=form_open("ManageUser/getUser", "autocomplete='off'")?>
 					  <input class="w3-input w3-border w3-left" style="width:300px;" type="text" name="i_key" placeholder="Username/E-mail">
 					  <button class="w3-button w3-blue">ค้นหา</button>
+					</td>
+					<td class="w3-right"><select id="i_sort" name="i_sort" class="w3-input" onChange="this.form.submit();">
+						  	<?php
+						  		if(!isset($current_sort)) $current_sort = '';
+						  		$sorting_arr = json_decode(json_encode($sorting_obj), True);
+								$select = '<option value="">ไม่ระบุ</option>';
+								foreach($sorting_arr as $k => $v):
+									if($k == $current_sort):
+										$str = "selected";
+									else:
+										$str = "";
+									endif;
+								    $select .= '<option value="'.$k.'"'.$str.'>'.$v.'</option>';
+								endforeach;
+
+								echo $select;
+						  	?>
+						  </select>
+					</td>
+					<td class="w3-right">เรียงลำดับข้อมูล</td>
 					</form>
+			  		<td style="padding:0px;margin:0px;">
+			  			<button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-blue w3-right">+</button>
 			  		</td>
-			  		<td colspan="3" style="padding:0px;margin:0px;"><button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-blue w3-right">+</button></td>
 			  	</tr>
 			  </table>
 			  <table class="w3-table-all w3-border">
@@ -40,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			      <td class="w3-center"><?=$user_arr[$i_no]['user_create']?></td>
 			      <td class="w3-center"><a href="getUserDetail/<?=$user_arr[$i_no]['user_id']?>"><i class="material-icons" style="vertical-align:middle;">assignment_ind</i></a></td>
 			      <td class="w3-center"><a href="updateUser/<?=$user_arr[$i_no]['user_id']?>"><i class="material-icons" style="vertical-align:middle;">edit</i></a></td>
-			      <?php if($user_arr[$i_no]['type_id']==1 && $user_arr[$i_no]['user_name']=="Administrator"): ?>
+			      <?php if(($user_arr[$i_no]['type_id']==1 && $user_arr[$i_no]['user_name']=="Administrator") || ($user_arr[$i_no]['type_id']==5 && $user_arr[$i_no]['user_name']=="Superadmin")): ?>
 			      	<td class="w3-center">-</td>
 			  	  <?php else: ?>
 			      	<td class="w3-center"><a href="deleting/<?=$user_arr[$i_no]['user_id']?>" onclick="return confirmation('กรุณายืนยันเพื่อลบข้อมูลผู้ใช้?')"><i class="material-icons" style="vertical-align:middle;">delete</i></a></td>

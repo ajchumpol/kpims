@@ -12,10 +12,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<?=form_open("User/login", "autocomplete='off'")?>
 
 		<label>ชื่อผู้ใช้งาน</label>
-		<input class="w3-input" name="i_username" id="i_username" type="text" placeholder="Username">
+		<input class="w3-input" name="i_username" id="i_username" type="text" placeholder="Username" required>
 
 		<label>รหัสผ่าน</label>
-		<input class="w3-input" name="i_password" id="i_password" type="password" placeholder="Password">
+		<input class="w3-input" name="i_password" id="i_password" type="password" placeholder="Password" required>
 
 		<button class="w3-button w3-blue w3-block w3-margin-top" type="submit">ตกลง</button>
 		<button class="w3-button w3-red w3-margin-top">ล้างข้อมูล</button>

@@ -30,7 +30,7 @@ function check_status($data=""){
 			      <th class="w3-center">สถานะเอกสาร</th>
 			      <th class="w3-center">ปีบัญชี</th>
 			      <th class="w3-center">สร้างโดย</th>
-			      <?php if($_SESSION['s_user_type'] == 3): ?>
+			      <?php if($_SESSION['s_user_type'] == 3 || $_SESSION['s_user_type'] == 1 || $_SESSION['s_user_type'] == 5): ?>
 			      <th class="w3-center">ลบ</th>
 			  		<?php endif; ?>
 			    </tr>
@@ -56,7 +56,7 @@ function check_status($data=""){
 			      <td class="w3-center"><?=check_status($data_arr[$i_no]['doc_status'])?></td>
 			      <td class="w3-center"><?=$data_arr[$i_no]['doc_year']?></td>
 			      <td><?=$data_arr[$i_no]['user_name']?></td>
-			      <?php if($_SESSION['s_user_type'] == 3): ?>
+			      <?php if($_SESSION['s_user_type'] == 3 || $_SESSION['s_user_type'] == 1 || $_SESSION['s_user_type'] == 5): ?>
 			      <td class="w3-center">
 			      <?php if($e_del): ?>
 			      	<a href="deleting/<?=$data_arr[$i_no]['doc_id']?>" onclick="return confirmation('กรุณายืนยันเพื่อลบเอกสารเกณฑ์ประเมินผลฯ ?')"><i class="material-icons" style="vertical-align:middle;">delete</i></a>

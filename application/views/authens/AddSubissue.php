@@ -53,6 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<th class="w3-center" rowspan="2">ข้อมูลประเด็นย่อยฯ</th>
 				<th class="w3-center" rowspan="2">น้ำหนัก (%)</th>
 				<th class="w3-center" colspan="5">ระดับคะแนน</th>
+				<th class="w3-center" rowspan="2">เอกสารแนบ</th>
 				<th class="w3-center" rowspan="2">ลบ</th>
 			</tr>
 			<tr class="w3-blue">
@@ -75,6 +76,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<td><?=$data_subissue_arr[$j_no]['gra_title3']?></td>
 				<td><?=$data_subissue_arr[$j_no]['gra_title4']?></td>
 				<td><?=$data_subissue_arr[$j_no]['gra_title5']?></td>
+				<td style="vertical-align: text-top;">
+					<?php
+					$data_att_arr = json_decode(json_encode($data_att_obj), True);
+					echo "<ul>";
+					$flag = 0;
+					for ($k_no = 0; $k_no < count($data_att_arr); $k_no++):
+						if ($data_att_arr[$k_no]['issdet_id'] == $data_subissue_arr[$j_no]['issdet_id']):
+							$flag++;
+							echo "<li><a class='w3-btn' href='".base_url($data_att_arr[$k_no]['att_path'])."' target='_blank'>".$data_att_arr[$k_no]['att_label']."</a></li>";
+						endif;
+					endfor;
+					if($flag == 0):
+						echo '<label style="color:#ff0000;">* ไม่มีเอกสารแนบ</label>';
+					endif;
+					echo "</ul>";
+					?>
+				</td>
 				<td class="w3-center"><a href="<?=base_url('index.php/ManageCokpi/deletingSubissue/').$data_subissue_arr[$j_no]['issdet_id'].'/'.$data_subissue_arr[$j_no]['subcokpi_id'].'/'.$cokpi_id.'/'.$cri_id?>" onclick="return confirmation('กรุณายืนยันเพื่อลบข้อมูลประเด็นย่อยฯ ?')"><i class="material-icons" style="vertical-align:middle;">delete</i></a></td>
 			</tr>
 		  <?php
@@ -84,11 +102,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		  	if($j_no == 0):
 		  ?>
 			<tr>
-			   <td colspan="8" style="text-align:center;">*** ไม่มีรายการข้อมูล ***</td>
+			   <td colspan="9" style="text-align:center;">*** ไม่มีรายการข้อมูล ***</td>
 			</tr>
 			<?php endif; ?>
 			<tr>
-			   <th colspan="8" style="text-align:right;">ทั้งหมด <?=count($data_subissue_arr)?> ระเบียน</th>
+			   <th colspan="9" style="text-align:right;">ทั้งหมด <?=count($data_subissue_arr)?> ระเบียน</th>
 			</tr>
 		  </table>
 
@@ -103,7 +121,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				'class' => 'w3-container', 
 				'id' => 'addform', 
 				'method' => 'post', 
-				'autocomplete' => 'off'
+				'autocomplete' => 'off',
+				'enctype' => 'multipart/form-data'
 			);
 
 			$i_issdet_id = "";
@@ -161,6 +180,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					  	?>
 					  </select>
 			</td>
+			</tr>
+			<tr>
+				<td><b>เอกสารแนบ</b></td>
+				<td>
+					<input type="file" class="w3-input w3-button" name="upload_Files[]" id="upload_Files" accept=".pdf|.doc|.docx" multiple />
+				</td>
 			</tr>
 			<tr>
 			<td colspan="2">

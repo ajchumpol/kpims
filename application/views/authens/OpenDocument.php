@@ -151,7 +151,7 @@ function check_value($data=""){
 			<tr>
 				<td><?=$data_subcokpi_arr[$k_no]['issdet_title']?><input type="hidden" name="i_issdet_id[]" value="<?=$data_subcokpi_arr[$k_no]['issdet_id']?>"></td>
 				<td class="w3-center"><input type="number" value="<?=$data_subcokpi_arr[$k_no]['issdet_wei']?>" name="i_subkpi_wei[<?=$data_cokpi_arr[$i_no]['subcokpi_id']?>][<?=$data_subcokpi_arr[$k_no]['issdet_id']?>]" class="w3-light-grey" style="width:50px;" readonly required></td>
-				<td colspan="2">
+				<td>
 		  <?php
 		  				for ($l_no = 0; $l_no < count($data_grade_arr); $l_no++):
 		  					if($data_grade_arr[$l_no]['gra_id'] == $data_subcokpi_arr[$k_no]['gra_id']):
@@ -172,6 +172,27 @@ function check_value($data=""){
 								endif;
 							endfor;
 			?>
+				</td>
+				<td>
+					<ul>
+					<?php
+					$data_att_arr = json_decode(json_encode($data_att_obj), True);
+					$flag = 0;
+					for ($l_no = 0; $l_no < count($data_att_arr); $l_no++):
+						if (($data_att_arr[$l_no]['issdet_id'] == $data_subcokpi_arr[$k_no]['issdet_id']) && 
+							($data_att_arr[$l_no]['subcokpi_id'] == $data_cokpi_arr[$i_no]['subcokpi_id'])):
+							$flag++;
+							echo "<li><a class='w3-btn' href='".base_url($data_att_arr[$l_no]['att_path'])."' target='_blank'>".$data_att_arr[$l_no]['att_label']."</a></li>";
+						endif;
+					endfor;
+
+					if($flag == 0):
+					?>
+						<li>
+							<label style="color:#ff0000;">* ไม่มีเอกสารแนบ</label>
+						</li>
+					</ul>
+					<?php endif; ?>
 				</td>
 			</tr>
 		  <?php

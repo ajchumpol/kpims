@@ -154,18 +154,21 @@ class User_Model extends CI_Model {
 	 * @param mixed $key
 	 * @return object the user object
 	 */
-	public function get_users($key) {
+	public function get_users($key, $srt='') {
 
 		$this->db->from('kpi_user');
 		$this->db->join('kpi_user_type', 'kpi_user.type_id = kpi_user_type.type_id');
 		$this->db->where('kpi_user.user_deleted = 0 AND (kpi_user.user_name LIKE "%'.$key.'%" OR kpi_user.user_email LIKE "%'.$key.'%")');
-		$this->db->order_by("kpi_user.user_create","asc");
+		if($srt!='')
+			$this->db->order_by("kpi_user.".$srt,"asc");
+		else
+			$this->db->order_by("kpi_user.user_create","asc");
 
 		return $this->db->get()->result();
 
 	}
 
-	function get_users_pg($limit, $offset, $key='') {
+	function get_users_pg($limit, $offset, $key='', $srt='') {
     	if ($offset > 0) {
         	$offset = ($offset - 1) * $limit;
     	}
@@ -173,7 +176,11 @@ class User_Model extends CI_Model {
 		$this->db->from('kpi_user');
 		$this->db->join('kpi_user_type', 'kpi_user.type_id = kpi_user_type.type_id');
 		$this->db->where('kpi_user.user_deleted = 0 AND (kpi_user.user_name LIKE "%'.$key.'%" OR kpi_user.user_email LIKE "%'.$key.'%")');
-		$this->db->order_by("kpi_user.user_name","asc");
+		//$this->db->order_by("kpi_user.user_name","asc");
+		if($srt!='')
+			$this->db->order_by("kpi_user.".$srt,"asc");
+		else
+			$this->db->order_by("kpi_user.user_create","asc");
 
 		$result['num_rows'] = $this->db->count_all_results();
 
@@ -244,6 +251,20 @@ class User_Model extends CI_Model {
 
 		return $this->db->update('kpi_user', $data);
 
+	}
+	
+	/**
+	 * sorting_list function.
+	 */
+	function sorting_list(){
+		$data = array(
+			"user_id" => "รหัสผู้ใช้ (น้อย ไป มาก)",
+			"user_name" => "ชื่อผู้ใช้ (A - Z)",
+			"user_email" => "อีเมลผู้ใช้ (A - Z)",
+			"type_id" => "ประเภทผู้ใช้ (น้อย ไป มาก)",
+			"user_create" => "วันที่สมัคร (เก่าสุด - ล่าสุด)"
+		);
+		return $data;
 	}
 
 }

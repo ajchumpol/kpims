@@ -141,7 +141,7 @@ class ManageDocument extends CI_Controller {
 		if (isset($_SESSION['s_user_logged_in']) && $_SESSION['s_user_logged_in'] === true) {
 	        $limit = 10;
 
-	        if($_SESSION['s_user_type'] == 2)
+	        if($_SESSION['s_user_type'] == 2 || $_SESSION['s_user_type'] == 4)
 	        	$result = $this->Document_Model->search_documents_by_pg($limit, $offset, $key, $key, $key);
 	        else
 	        	$result = $this->Document_Model->get_documents_by_pg($limit, $offset, $key);
@@ -177,7 +177,7 @@ class ManageDocument extends CI_Controller {
 
 	        $data->data_pg = $this->pagination->create_links();
 
-			if($_SESSION['s_user_type'] == 2)
+			if($_SESSION['s_user_type'] == 2 || $_SESSION['s_user_type'] == 4)
 				$alldata = $this->Document_Model->search_document($key, $key, $key);
 			else
 				$alldata = $this->Document_Model->get_documents($key);

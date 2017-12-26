@@ -79,12 +79,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<td style="vertical-align: text-top;">
 					<?php
 					$data_att_arr = json_decode(json_encode($data_att_obj), True);
-					echo "<ul>";
+					echo "<ul style='list-style-type: none;padding: 0;margin: 0;'>";
 					$flag = 0;
 					for ($k_no = 0; $k_no < count($data_att_arr); $k_no++):
 						if ($data_att_arr[$k_no]['issdet_id'] == $data_subissue_arr[$j_no]['issdet_id']):
 							$flag++;
-							echo "<li><a class='w3-btn' href='".base_url($data_att_arr[$k_no]['att_path'])."' target='_blank'>".$data_att_arr[$k_no]['att_label']."</a></li>";
+							echo "<li><a class='w3-btn w3-tooltip' href='".base_url($data_att_arr[$k_no]['att_path'])."' target='_blank'><i class='material-icons' style='vertical-align:middle;'>attach_file</i><span class='w3-text'>".$data_att_arr[$k_no]['att_label']."</span></a></li>";
 						endif;
 					endfor;
 					if($flag == 0):
@@ -122,7 +122,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				'id' => 'addform', 
 				'method' => 'post', 
 				'autocomplete' => 'off',
-				'enctype' => 'multipart/form-data'
+				'enctype' => 'multipart/form-data',
+				'onSubmit' => 'validateFiles()'
 			);
 
 			$i_issdet_id = "";
@@ -184,7 +185,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<tr>
 				<td><b>เอกสารแนบ</b></td>
 				<td>
-					<input type="file" class="w3-input w3-button" name="upload_Files[]" id="upload_Files" accept="application/msword,application/pdf" multiple onChange="return validateFiles();" />
+					<input type="file" class="w3-input w3-button" name="upload_Files[]" id="upload_Files" accept="application/msword,application/pdf" onChange="return validateFiles();" multiple />
 				</td>
 			</tr>
 			<tr>

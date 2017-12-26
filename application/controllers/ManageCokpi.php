@@ -598,7 +598,7 @@ class ManageCokpi extends CI_Controller {
 		if(!empty($_FILES['upload_Files']['name'])){
             $filesCount = count($_FILES['upload_Files']['name']);
             for($i = 0; $i < $filesCount; $i++){
-            	$new_name = strtotime(date('Y-m-j H:i:s'));
+            	//$new_name = strtotime(date('Y-m-j H:i:s'));
                 $_FILES['upload_File']['name'] = $_FILES['upload_Files']['name'][$i];
                 $_FILES['upload_File']['type'] = $_FILES['upload_Files']['type'][$i];
                 $_FILES['upload_File']['tmp_name'] = $_FILES['upload_Files']['tmp_name'][$i];
@@ -607,7 +607,9 @@ class ManageCokpi extends CI_Controller {
                 $uploadPath = 'attachs/files/';
                 $config['upload_path'] = $uploadPath;
                 $config['allowed_types'] = 'pdf|doc|docx';
-                $config['file_name'] = $new_name;
+                //$config['file_name'] = $new_name;
+                $config['file_name'] = $_FILES['upload_File']['name'];
+		$config['max_size'] = '2048'; //maximum size in 2mb.
 
                 $this->load->library('upload', $config);
                 $this->upload->initialize($config);

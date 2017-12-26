@@ -204,12 +204,14 @@ function check_value($data=""){
 		  ?>
 		  	<input type="hidden" name="i_ind" value="<?=$ind?>">
 			<tr>
-			<td colspan="6">
+			<td colspan="3">
 				<button type="submit" class="w3-btn w3-grey" name="i_submit_draft">บันทึกฉบับร่าง</button>
-				<button type="submit" class="w3-btn w3-blue" name="i_submit" onclick="return confirmation('กรุณาตรวจสอบข้อมูลก่อนบันทึกเอกสาร\nกรอบหลักเกณฑ์การประเมินผลการดำเนินงานทุนหมุนเวียน ประจำปีบัญชี '+document.getElementById('i_year').value+'\nเนื่องจากคุณจะไม่สามารถแก้ไขเอกสารดังกล่าวได้หลังการกดยืนยัน?');">บันทึก</button>
 				<button type="reset" class="w3-btn w3-blue">เคลียร์</button>
 				<a href="<?=base_url('index.php/MainUser')?>" class="w3-button w3-red">ย้อนกลับ</a>
 			<span style="color:#FF0000;"><b>หมายเหตุ</b> * หมายถึง ต้องระบุข้อมูล</span>
+			</td>
+			<td style="text-align:right;">
+				<button type="submit" class="w3-btn w3-green" name="i_submit" onclick="return confirmation('กรุณาตรวจสอบข้อมูลก่อนบันทึกเอกสาร\nกรอบหลักเกณฑ์การประเมินผลการดำเนินงานทุนหมุนเวียน ประจำปีบัญชี '+document.getElementById('i_year').value+'\nเนื่องจากคุณจะไม่สามารถแก้ไขเอกสารดังกล่าวได้หลังการกดยืนยัน?');">บันทึก</button>
 			</td>
 			</tr>
 			</table>

@@ -209,7 +209,8 @@ class Document_Model extends CI_Model {
 	public function search_document($d0="", $d1="", $d2="") {
 		$this->db->from('kpi_document');
 		$this->db->join('kpi_user', 'kpi_document.doc_create_by=kpi_user.user_id');
-		$this->db->where('kpi_document.doc_status LIKE \'S\' AND (kpi_document.doc_year = \''.$d0.'\' OR kpi_document.doc_label LIKE "%'.$d1.'%" OR kpi_document.doc_title LIKE "%'.$d2.'%")');
+		//$this->db->where('kpi_document.doc_status LIKE \'S\' AND (kpi_document.doc_year = \''.$d0.'\' OR kpi_document.doc_label LIKE "%'.$d1.'%" OR kpi_document.doc_title LIKE "%'.$d2.'%")');
+		$this->db->where('(kpi_document.doc_status LIKE \'S\' OR kpi_document.doc_status LIKE \'C\') AND (kpi_document.doc_year = \''.$d0.'\' OR kpi_document.doc_label LIKE "%'.$d1.'%" OR kpi_document.doc_title LIKE "%'.$d2.'%")');
 		$this->db->order_by("kpi_document.doc_label","asc");
 
 		return $this->db->get()->result();
@@ -225,7 +226,8 @@ class Document_Model extends CI_Model {
 
 		$this->db->from('kpi_document');
 		$this->db->join('kpi_user', 'kpi_document.doc_create_by=kpi_user.user_id');
-		$this->db->where('kpi_document.doc_status LIKE \'S\' AND (kpi_document.doc_year = \''.$d0.'\' OR kpi_document.doc_label LIKE "%'.$d1.'%" OR kpi_document.doc_title LIKE "%'.$d2.'%")');
+		//$this->db->where('kpi_document.doc_status LIKE \'S\' AND (kpi_document.doc_year = \''.$d0.'\' OR kpi_document.doc_label LIKE "%'.$d1.'%" OR kpi_document.doc_title LIKE "%'.$d2.'%")');
+		$this->db->where('(kpi_document.doc_status LIKE \'S\' OR kpi_document.doc_status LIKE \'C\') AND (kpi_document.doc_year = \''.$d0.'\' OR kpi_document.doc_label LIKE "%'.$d1.'%" OR kpi_document.doc_title LIKE "%'.$d2.'%")');
 		$this->db->order_by("kpi_document.doc_label","asc");
 		
 		$result['num_rows'] = $this->db->count_all_results();

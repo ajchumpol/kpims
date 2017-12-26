@@ -101,8 +101,10 @@ class ManageDocument extends CI_Controller {
 		$title = $this->input->post('i_title');
 		$year = $this->input->post('i_year');
 		$submit_draft = $this->input->post('i_submit_draft');
+		
 		$submit = $this->input->post('i_submit');
-		if(isset($submit)) $status = "S"; else $status = "D";
+		$status = $this->checkDocStatus($submit);
+
 		$create_by = $_SESSION['s_user_id'];
 		$cokpi_wei = $this->input->post('i_cokpi_wei');			// association array - $data_arr0
 		$cokpi_subkpi = $this->input->post('i_cokpi_subkpi');	// association array - $data_arr1
@@ -274,8 +276,11 @@ class ManageDocument extends CI_Controller {
 		$title = $this->input->post('i_title');
 		$year = $this->input->post('i_year');
 		$submit_draft = $this->input->post('i_submit_draft');
+		
 		$submit = $this->input->post('i_submit');
-		if(isset($submit)) $status = "S"; else $status = "D";
+		//if(isset($submit)) $status = "S"; else $status = "D";
+		$status = $this->checkDocStatus($submit);
+		
 		$edit_by = $_SESSION['s_user_id'];
 		$cokpi_wei = $this->input->post('i_cokpi_wei');			// association array - $data_arr0
 		$cokpi_subkpi = $this->input->post('i_cokpi_subkpi');	// association array - $data_arr1
@@ -382,8 +387,15 @@ class ManageDocument extends CI_Controller {
 			$data->doc_create_name = (string)$data_doc->user_flname;
 			$data->doc_create = (string)$data_doc->doc_create;
 			$user_obj = $this->User_Model->get_user((int)$data_doc->doc_edit_by);
-			$data->doc_edit_name = (string)$user_obj->user_flname;
-			$data->doc_edit = (string)$data_doc->doc_edit;
+
+			if($user_obj)
+				$data->doc_edit_name = (string)$user_obj->user_flname;
+			else
+				$data->doc_edit_name = "ไม่ระบุ";
+			if((string)$data_doc->doc_edit != "0000-00-00 00:00:00")
+				$data->doc_edit = (string)$data_doc->doc_edit;
+			else
+				$data->doc_edit = "ไม่ระบุ";
 
 			$data_cri = $this->Document_Model->get_codoc_crit_cokpi_by_id($id);
 			$data->data_cri_obj = $data_cri;
@@ -493,5 +505,15 @@ class ManageDocument extends CI_Controller {
 			redirect('Login');
 		}
 	} //end getDocSearch function.
+
+	public function checkDocStatus($sb){
+		if(isset($sb)) {
+			if($_SESSION['s_user_type'] == 5)
+				$status = "C";	//confirm
+			else
+				$status = "S";	//submit
+		} else $status = "D";	//draft
+		return $status;
+	} //end checkDocStatus
 	
 }

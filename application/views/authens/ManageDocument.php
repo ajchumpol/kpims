@@ -41,7 +41,7 @@ function check_status($data=""){
 					$act = "";
 					$e_del = false;
 					for ($i_no = 0; $i_no < count($data_arr); $i_no++):
-						if($data_arr[$i_no]['doc_status']=="D"):
+						if($data_arr[$i_no]['doc_status']=="D" || ($data_arr[$i_no]['doc_status']=="S" && $_SESSION['s_user_type'] == 5)):
 							$e_del = true;
 							$act = "updateDocument/".$data_arr[$i_no]['doc_id'];
 						else:

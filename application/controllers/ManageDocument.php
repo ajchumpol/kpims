@@ -369,7 +369,7 @@ class ManageDocument extends CI_Controller {
 	 * @access public
 	 * @return void
 	 */
-	public function printDocument($id) {
+	public function printDocument($id=0, $rep=0) {
 
 		$data = new stdClass();
 		
@@ -414,7 +414,10 @@ class ManageDocument extends CI_Controller {
 			$data->data_grade_obj = $data_grade;
 			/********************************************/
 
-			$this->load->view('authens/PrintDocument', $data);
+			if($rep!=0)
+			  $this->load->view('authens/ReportDocument', $data);
+			else
+			  $this->load->view('authens/PrintDocument', $data);
 		
 		} else {
 			echo 'Permission denied.';
@@ -515,5 +518,5 @@ class ManageDocument extends CI_Controller {
 		} else $status = "D";	//draft
 		return $status;
 	} //end checkDocStatus
-	
-}
+
+} //end ManageDocument class

@@ -40,18 +40,25 @@ function check_status($data=""){
 					$i_ord = 1;
 					$act = "";
 					$e_del = false;
+					$e_target = "";
 					for ($i_no = 0; $i_no < count($data_arr); $i_no++):
-						if($data_arr[$i_no]['doc_status']=="D" || ($data_arr[$i_no]['doc_status']=="S" && $_SESSION['s_user_type'] == 5)):
+						if($data_arr[$i_no]['doc_status']=="D"):
 							$e_del = true;
 							$act = "updateDocument/".$data_arr[$i_no]['doc_id'];
 						else:
 							$e_del = false;
-							$act = "viewDocument/".$data_arr[$i_no]['doc_id'];
+							if($_SESSION['s_user_type'] == 2):	//BOSS Role.
+								$e_target = "_blank";
+								$act = "printDocument/".$data_arr[$i_no]['doc_id']."/99"; //99 - reference to report
+							else:
+								$e_target = "";
+								$act = "viewDocument/".$data_arr[$i_no]['doc_id'];
+							endif;
 						endif;
 				?>
 			    <tr>
 			      <td><?=($i_ord++)?></td>
-			      <td class="w3-center"><a href="<?=$act?>" class="w3-bar-item w3-button w3-blue" ><?=$data_arr[$i_no]['doc_label']?></a></td>
+			      <td class="w3-center"><a href="<?=$act?>" target="<?=$e_target?>" class="w3-bar-item w3-button w3-blue" ><?=$data_arr[$i_no]['doc_label']?></a></td>
 			      <td><?=$data_arr[$i_no]['doc_title']?></td>
 			      <td class="w3-center"><?=check_status($data_arr[$i_no]['doc_status'])?></td>
 			      <td class="w3-center"><?=$data_arr[$i_no]['doc_year']?></td>

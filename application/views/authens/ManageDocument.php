@@ -42,12 +42,12 @@ function check_status($data=""){
 					$e_del = false;
 					$e_target = "";
 					for ($i_no = 0; $i_no < count($data_arr); $i_no++):
-						if($data_arr[$i_no]['doc_status']=="D"):
+						if($data_arr[$i_no]['doc_status']=="D" || ($_SESSION['s_user_type'] == 5 && $data_arr[$i_no]['doc_status']=="S")):
 							$e_del = true;
 							$act = "updateDocument/".$data_arr[$i_no]['doc_id'];
 						else:
 							$e_del = false;
-							if($_SESSION['s_user_type'] == 2):	//BOSS Role.
+							if($_SESSION['s_user_type'] == 2 && ($data_arr[$i_no]['doc_status']=="S" || $data_arr[$i_no]['doc_status']=="C")):	//BOSS Role.
 								$e_target = "_blank";
 								$act = "printDocument/".$data_arr[$i_no]['doc_id']."/99"; //99 - reference to report
 							else:
